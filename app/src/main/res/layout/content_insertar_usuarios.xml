@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/boton1_pagina2"
-        android:id="@+id/Listar"
+        android:id="@+id/InsertarUsuarios"
         android:layout_below="@+id/editFechaRegistro"
         android:layout_marginTop="50dp"
         android:width="200dp"

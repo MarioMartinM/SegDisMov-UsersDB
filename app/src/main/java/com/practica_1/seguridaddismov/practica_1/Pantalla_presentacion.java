@@ -13,6 +13,8 @@ import android.widget.Button;
 
 public class Pantalla_presentacion extends AppCompatActivity {
 
+    Button insertar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,7 @@ public class Pantalla_presentacion extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button insertar = (Button)findViewById(R.id.Insertar);
+        insertar = (Button)findViewById(R.id.Insertar);
 
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
