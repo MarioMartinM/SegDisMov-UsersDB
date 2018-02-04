@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.practica_1.seguridaddismov.practica_1.Pantalla_presentacion"
+    tools:showIn="@layout/activity_pantalla_presentacion">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tit_pagina2"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textColor="#000207"
+        android:id="@+id/tituloPagina2"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/boton1_pagina2"
+        android:id="@+id/Listar"
+        android:layout_below="@+id/tituloPagina2"
+        android:layout_marginTop="50dp"
+        android:width="300dp"
+        android:height="70dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/boton2_pagina2"
+        android:id="@+id/Insertar"
+        android:layout_below="@+id/Listar"
+        android:layout_marginTop="50dp"
+        android:width="300dp"
+        android:height="70dp"
+
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

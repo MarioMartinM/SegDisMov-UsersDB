@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.practica_1.seguridaddismov.practica_1.insertar_usuarios"
+    tools:showIn="@layout/activity_insertar_usuarios">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textoForm"
+        android:text="@string/tit_insertar"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:textColor="#000207"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_below="@+id/textoForm"
+        android:textColor="#57585b"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:hint="@string/nacionalidad"
+        android:id="@+id/editNacionalidad" />
+
+    <TextView
+        android:id="@+id/textSexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignStart="@+id/editNacionalidad"
+        android:layout_below="@+id/editNacionalidad"
+        android:layout_marginStart="7dp"
+        android:text="@string/textSexo"
+        android:textColor="#57585b"
+        android:textSize="19sp" />
+
+    <CheckBox
+        android:id="@+id/radioHombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSexo"
+        android:layout_alignStart="@+id/textSexo"
+        android:layout_marginStart="17dp"
+        android:text="@string/opcion_hombre" />
+
+    <CheckBox
+        android:id="@+id/radioMujer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/radioHombre"
+        android:layout_alignBottom="@+id/radioHombre"
+        android:layout_alignEnd="@+id/editNacionalidad"
+        android:layout_marginEnd="61dp"
+        android:text="@string/opcion_mujer" />
+
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_below="@+id/radioHombre"
+        android:hint="@string/numero_usuarios"
+        android:textColor="#57585b"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/editNumeroUsuarios" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:layout_below="@+id/editNumeroUsuarios"
+        android:hint="@string/fecha_registro"
+        android:textColor="#57585b"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/editFechaRegistro" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_insertar"
+        android:id="@+id/Listar"
+        android:layout_below="@+id/editFechaRegistro"
+        android:layout_marginTop="50dp"
+        android:width="200dp"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
