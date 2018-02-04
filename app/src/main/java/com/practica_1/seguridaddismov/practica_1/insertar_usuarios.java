@@ -49,20 +49,39 @@ public class insertar_usuarios extends AppCompatActivity {
                 String numeroUsuarios = txtNumeroUsuarios.getText().toString();
                 String fechaRegistro = txtFechaRegistro.getText().toString();
 
-                StringBuilder API_URL_BUILD = "https://randomuser.me/api/";
+                StringBuilder API_URL_BUILD = new StringBuilder();
+                API_URL_BUILD.append("https://randomuser.me/api/");
 
-                try {
-                    if(nacionalidad!=null){ API_URL_BUILD.append("?nat="+nacionalidad.toLowerCase());}
+                try {//CAMBIAR ESTO A LA FORMA RAFA
+                    if((nacionalidad!=null && numeroUsuarios!=null && hombre!=null && mujer!=null) || (nacionalidad!=null && numeroUsuarios!=null && hombre==null && mujer==null) ){
+                        API_URL_BUILD.append("?nat="+nacionalidad.toLowerCase()+"&results="+numeroUsuarios);
+                    }
 
-                    if(hombre!=null){ API_URL_BUILD.append("?gender=male");}
+                    else if(nacionalidad!=null && numeroUsuarios!=null && hombre!=null && mujer==null){ API_URL_BUILD.append("?nat="+nacionalidad.toLowerCase()+"&results="+numeroUsuarios+"&gender=male");}
 
-                    if(mujer!=null){ API_URL_BUILD.append("?gender=female");}
+                    else if(nacionalidad!=null && numeroUsuarios!=null && hombre==null && mujer!=null){ API_URL_BUILD.append("?nat="+nacionalidad.toLowerCase()+"&results="+numeroUsuarios+"&gender=female");}
 
-                    if(numeroUsuarios!=null){ API_URL_BUILD.append("?results="+numeroUsuarios);}
+                    else if(nacionalidad!=null && numeroUsuarios==null && hombre==null && mujer!=null){ API_URL_BUILD.append("?nat="+nacionalidad.toLowerCase()+"&gender=female");}
+
+                    else if(nacionalidad!=null && numeroUsuarios==null && hombre!=null && mujer==null){ API_URL_BUILD.append("?nat="+nacionalidad.toLowerCase()+"&gender=male");}
+
+                    else if(nacionalidad==null && numeroUsuarios!=null && hombre==null && mujer!=null){ API_URL_BUILD.append("?results="+numeroUsuarios+"&gender=female");}
+
+                    else if(nacionalidad==null && numeroUsuarios!=null && hombre!=null && mujer==null){ API_URL_BUILD.append("?results="+numeroUsuarios+"&gender=male");}
+
+                    else if(nacionalidad!=null){ API_URL_BUILD.append("?nat="+nacionalidad.toLowerCase());}
+
+                    else if(hombre!=null && mujer==null){ API_URL_BUILD.append("?gender=male");}
+
+                    else if(mujer!=null && hombre==null){ API_URL_BUILD.append("?gender=female");}
+
+                    else if(numeroUsuarios!=null){ API_URL_BUILD.append("?results="+numeroUsuarios);}
 
 
 
 
+
+/*
                     String API_URL = API_URL_BUILD.toString();
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -78,11 +97,11 @@ public class insertar_usuarios extends AppCompatActivity {
                     }
                     finally{
                         urlConnection.disconnect();
-                    }
+                    }*/
                 }
                 catch(Exception e) {
                     Log.e("ERROR", e.getMessage(), e);
-                    return null;
+                   // return null;
                 }
             }
         });
