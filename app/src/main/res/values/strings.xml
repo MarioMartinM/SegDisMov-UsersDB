@@ -14,6 +14,6 @@
     <string name="opcion_mujer">Mujer</string>
     <string name="numero_usuarios">Numero de usuarios a insertar</string>
     <string name="fecha_registro">Fecha de registro</string>
-    <string name="boton_insertar">Insertar usuarios</string>
+
 
 </resources>
