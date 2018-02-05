@@ -13,8 +13,5 @@ public class pagina2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagina2);
-        // Prueba Rafa
-
     }
-
 }
