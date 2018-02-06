@@ -58,7 +58,7 @@ public class insertar_usuarios extends AppCompatActivity {
                 String numeroUsuarios = txtNumeroUsuarios.getText().toString();
                 String fechaRegistro = txtFechaRegistro.getText().toString();
 
-                API_URL_BUILD.append("https://randomuser.me/api/?");
+                API_URL_BUILD.append("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
 
                 try {
                     /*
@@ -127,11 +127,36 @@ public class insertar_usuarios extends AppCompatActivity {
                     /*Array con todos los usuarios devueltos.*/
                     JSONObject objectJson = new JSONObject(resultadoURL);
                     JSONArray listaResultado = objectJson.getJSONArray("results");
-
                     Log.d("PRUEBA7", "Lista de usuarios2: "+listaResultado);
 
+                    for(int i=0; i<listaResultado.length(); i++){
+                        JSONObject aux = listaResultado.getJSONObject(i);
+
+                        String gender = aux.getString("gender");
+                        String name = aux.getString("name");
+                        String location = aux.getString("location");
+                        String login = aux.getString("login");
+                        String registered = aux.getString("registered");
+                        String picture = aux.getString("picture");
+
+                        Usuario usr = new Usuario(name, gender, location, picture, registered, login);
+
+                        //METER EN LA BASE DE DATOS
+
+                    }
                     JSONObject aux = listaResultado.getJSONObject(0);
                     Log.d("PRUEBA8", "Usuario 0: "+aux);
+
+                    String gender = aux.getString("gender");
+                    String name = aux.getString("name");
+                    String location = aux.getString("location");
+                    String login = aux.getString("login");
+                    String registered = aux.getString("registered");
+                    String picture = aux.getString("picture");
+
+                    Log.d("PRUEBA9","Genero de usuario 0: "+gender);
+                    Log.d("PRUEBA9","Nombre de usuario 0: "+name);
+                    Log.d("PRUEBA9","Location de usuario 0: "+location);
 
                     //TAREAS FUTURAS: Parsear el json, guardarlo en la BBDD y recuperarlo
 
