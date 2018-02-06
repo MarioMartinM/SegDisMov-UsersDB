@@ -14,7 +14,5 @@ public class pagina2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagina2);
 
-
     }
-
 }
