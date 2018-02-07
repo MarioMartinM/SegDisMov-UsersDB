@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editNacionalidad"
         android:layout_below="@+id/textoForm"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="20"
         android:text="@string/nacionalidad"
         android:textColor="#57585b"
         android:textSize="19sp" />
@@ -36,7 +36,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editNumeroUsuarios"
-        android:layout_below="@+id/textNacionalidad"
+        android:layout_alignTop="@+id/textNacionalidad"
+        android:layout_marginTop="18dp"
         android:ems="10"
         android:hint="@string/nacionalidad_ph"
         android:inputType="text"
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editNacionalidad"
         android:layout_below="@+id/editNacionalidad"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="20dp"
         android:text="@string/textSexo"
         android:textColor="#57585b"
         android:textSize="19sp" />
@@ -73,39 +74,62 @@
         android:text="@string/opcion_mujer" />
 
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:layout_below="@+id/radioHombre"
-        android:hint="@string/numero_usuarios"
-        android:textColor="#57585b"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/editNumeroUsuarios" />
-
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:layout_below="@+id/editNumeroUsuarios"
-        android:hint="@string/fecha_registro"
-        android:textColor="#57585b"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/editFechaRegistro" />
-
-    <Button
+    <TextView
+        android:id="@+id/textNumeroUsuarios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/boton1_pagina2"
+        android:layout_alignStart="@+id/editNumeroUsuarios"
+        android:layout_below="@+id/radioHombre"
+        android:layout_marginTop="20dp"
+        android:text="@string/numero_usuarios"
+        android:textColor="#57585b"
+        android:textSize="19sp" />
+
+    <EditText
+        android:id="@+id/editNumeroUsuarios"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editFechaRegistro"
+        android:layout_alignTop="@+id/textNumeroUsuarios"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="@string/numero_usuarios_ph"
+        android:inputType="number"
+        android:textColor="#57585b" />
+
+    <TextView
+        android:id="@+id/textFechaRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editNumeroUsuarios"
+        android:layout_below="@+id/editNumeroUsuarios"
+        android:layout_marginTop="20dp"
+        android:text="@string/fecha_registro"
+        android:textColor="#57585b"
+        android:textSize="19sp" />
+
+    <EditText
+        android:id="@+id/editFechaRegistro"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/textFechaRegistro"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="@string/fecha_registro_ejemplo"
+        android:inputType="date"
+        android:textColor="#57585b" />
+
+    <Button
         android:id="@+id/InsertarUsuarios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/editFechaRegistro"
-        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
         android:width="200dp"
-        android:layout_centerHorizontal="true" />
+        android:text="@string/boton1_pagina2" />
 
 
 </RelativeLayout>

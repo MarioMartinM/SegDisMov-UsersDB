@@ -12,7 +12,7 @@
     <string name="textSexo">Sexo</string>
     <string name="opcion_hombre">Hombre</string>
     <string name="opcion_mujer">Mujer</string>
-    <string name="numero_usuarios">Numero de usuarios a insertar</string>
+    <string name="numero_usuarios">Numero de usuarios a insertar:</string>
     <string name="fecha_registro">Fecha de registro:</string>
     <string name="title_activity_listar_usuarios">Nombre_APP</string>
     <string name="nombre">Nombre:</string>
@@ -20,7 +20,8 @@
     <string name="fecha_registro_ejemplo">dd/mm/yyyy</string>
     <string name="genero">Género:</string>
     <string name="genero_ejemplo">M/F</string>
-    <string name="nacionalidad_ph">ES,FR,....</string>
+    <string name="nacionalidad_ph">ES, FR, GB, US, AU, BR, CA, CH, DE, DK, FI</string>
+    <string name="numero_usuarios_ph">1, 2, 3...</string>
 
 
 </resources>
