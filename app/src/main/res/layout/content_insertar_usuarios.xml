@@ -20,26 +20,35 @@
         android:layout_centerHorizontal="true"
         />
 
+    <TextView
+        android:id="@+id/textNacionalidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editNacionalidad"
+        android:layout_below="@+id/textoForm"
+        android:layout_marginTop="22dp"
+        android:text="@string/nacionalidad"
+        android:textColor="#57585b"
+        android:textSize="19sp" />
+
     <EditText
+        android:id="@+id/editNacionalidad"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editNumeroUsuarios"
+        android:layout_below="@+id/textNacionalidad"
         android:ems="10"
+        android:hint="@string/nacionalidad_ph"
         android:inputType="text"
-        android:layout_below="@+id/textoForm"
-        android:textColor="#57585b"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:hint="@string/nacionalidad"
-        android:id="@+id/editNacionalidad" />
+        android:textColor="#57585b" />
 
     <TextView
         android:id="@+id/textSexo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_alignStart="@+id/editNacionalidad"
         android:layout_below="@+id/editNacionalidad"
-        android:layout_marginStart="7dp"
+        android:layout_marginTop="19dp"
         android:text="@string/textSexo"
         android:textColor="#57585b"
         android:textSize="19sp" />
