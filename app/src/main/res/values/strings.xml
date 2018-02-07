@@ -6,15 +6,21 @@
     <string name="tit_pagina2">¡Gestiona los usuarios a tu gusto!</string>
     <string name="boton1_pagina2">LISTAR USUARIOS</string>
     <string name="boton2_pagina2">INSERTAR USUARIOS</string>
-    <string name="nacionalidad">Nacionalidad</string>
+    <string name="nacionalidad">Nacionalidad:</string>
     <string name="title_activity_insertar_usuarios">Nombre_APP</string>
     <string name="tit_insertar">Rellena el formulario para insertar nuevos usuarios</string>
     <string name="textSexo">Sexo</string>
     <string name="opcion_hombre">Hombre</string>
     <string name="opcion_mujer">Mujer</string>
     <string name="numero_usuarios">Numero de usuarios a insertar</string>
-    <string name="fecha_registro">Fecha de registro</string>
+    <string name="fecha_registro">Fecha de registro:</string>
     <string name="title_activity_listar_usuarios">Nombre_APP</string>
+    <string name="nombre">Nombre:</string>
+    <string name="nombre_ejemplo">Mr. Mario Martín</string>
+    <string name="fecha_registro_ejemplo">dd/mm/yyyy</string>
+    <string name="genero">Género:</string>
+    <string name="genero_ejemplo">M/F</string>
+    <string name="nacionalidad_ph">ES,FR,....</string>
 
 
 </resources>
