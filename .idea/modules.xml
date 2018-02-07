@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\temp\seguridad\SegDisMov-practica1\Practica_1.iml" filepath="C:\temp\seguridad\SegDisMov-practica1\Practica_1.iml" />
-      <module fileurl="file://C:\Rafa\PracticasSDM\SegDisMov-practica1\Practica_1.iml" filepath="C:\Rafa\PracticasSDM\SegDisMov-practica1\Practica_1.iml" />
       <module fileurl="file://$PROJECT_DIR$/SegDisMov-practica1.iml" filepath="$PROJECT_DIR$/SegDisMov-practica1.iml" />
-      <module fileurl="file://E:\Seguridad_dispositivos_moviles\Practica_1\.idea\SegDisMov-practica1.iml" filepath="E:\Seguridad_dispositivos_moviles\Practica_1\.idea\SegDisMov-practica1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Rafa\PracticasSDM\SegDisMov-practica1\app\app.iml" filepath="C:\Rafa\PracticasSDM\SegDisMov-practica1\app\app.iml" />
-      <module fileurl="file://C:\temp\seguridad\SegDisMov-practica1\app\app.iml" filepath="C:\temp\seguridad\SegDisMov-practica1\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -21,7 +21,8 @@ public final class FeedReaderContract {
         public static final String COLUMN_NAME_LOCATION = "location";
         public static final String COLUMN_NAME_PICTURE = "picture";
         public static final String COLUMN_NAME_REGISTERED = "registered";
-        public static final String COLUMN_NAME_LOGIN = "login";
+        public static final String COLUMN_NAME_USERNAME = "username";
+        public static final String COLUMN_NAME_PASSWORD = "password";
     }
 
     private static final String TEXT_TYPE = " TEXT";
@@ -34,7 +35,8 @@ public final class FeedReaderContract {
                     FeedEntry.COLUMN_NAME_LOCATION + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_PICTURE + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_REGISTERED + TEXT_TYPE + COMMA_SEP +
-                    FeedEntry.COLUMN_NAME_LOGIN + TEXT_TYPE + " )";
+                    FeedEntry.COLUMN_NAME_USERNAME + TEXT_TYPE + COMMA_SEP +
+                    FeedEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + " )";
 
 
     private static final String SQL_DELETE_ENTRIES =
@@ -42,7 +44,7 @@ public final class FeedReaderContract {
 
     public static class FeedReaderDbHelper extends SQLiteOpenHelper {
         // If you change the database schema, you must increment the database version.
-        public static final int DATABASE_VERSION = 1;
+        public static final int DATABASE_VERSION = 2;
         public static final String DATABASE_NAME = "usuariosDB.db";
 
         public FeedReaderDbHelper(Context context) {

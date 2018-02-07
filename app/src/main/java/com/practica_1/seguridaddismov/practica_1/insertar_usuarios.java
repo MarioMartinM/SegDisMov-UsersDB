@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import org.json.JSONArray;
@@ -25,6 +26,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.prefs.Preferences;
 
 
@@ -36,7 +39,7 @@ public class insertar_usuarios extends AppCompatActivity {
     CheckBox txtMujer;
     EditText txtNumeroUsuarios;
     EditText txtFechaRegistro;
-    StringBuilder API_URL_BUILD = new StringBuilder();
+    StringBuilder API_URL_BUILD;
     String API_URL="";
     Context c = this;
 
@@ -62,9 +65,8 @@ public class insertar_usuarios extends AppCompatActivity {
                 String numeroUsuarios = txtNumeroUsuarios.getText().toString();
                 String fechaRegistro = txtFechaRegistro.getText().toString();
 
-                API_URL_BUILD.append("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
-
                 try {
+                    API_URL_BUILD = new StringBuilder("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
                     if(!nacionalidad.equals("")) {
                          API_URL_BUILD.append("&nat="+nacionalidad.toUpperCase());
                     }
@@ -76,9 +78,6 @@ public class insertar_usuarios extends AppCompatActivity {
                     }
                     if(!numeroUsuarios.equals("")) {
                             API_URL_BUILD.append("&results=" + numeroUsuarios);
-                    }
-                    if(!fechaRegistro.equals("")) {
-                            API_URL_BUILD.append("&registered=" + fechaRegistro);
                     }
 
                     API_URL = API_URL_BUILD.toString();
@@ -97,47 +96,64 @@ public class insertar_usuarios extends AppCompatActivity {
                     FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(c);
                     SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
+                    int usersAdded = 0;
                     for(int i=0; i<listaResultado.length(); i++){
                         JSONObject aux = listaResultado.getJSONObject(i);
 
-                        String gender = aux.getString("gender");
-                        String name = aux.getString("name");
-                        String location = aux.getString("location");
-                        String login = aux.getString("login");
                         String registered = aux.getString("registered");
-                        String picture = aux.getString("picture");
+                        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        Date registeredDate = formatter1.parse(registered);
 
-                        Usuario usr = new Usuario(name, gender, location, picture, registered, login);
+                        SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+                        Date specifiedDate = formatter2.parse(txtFechaRegistro.getText().toString());
 
-                        ContentValues values = new ContentValues();
-                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME, name);
-                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER, gender);
-                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, location);
-                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE, picture);
-                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED, registered);
-                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOGIN, login);
+                        if (registeredDate.before(specifiedDate) || fechaRegistro.equals("")){
+                            String gender = aux.getString("gender");
+                            if (gender.equals("male")){
+                                gender = "M";
+                            }
+                            else {
+                                gender = "F";
+                            }
 
-                        long newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                            JSONObject parsedName = aux.getJSONObject("name");
+                            String titleName = parsedName.getString("title");
+                            String titleNameCap = titleName.substring(0, 1).toUpperCase() + titleName.substring(1);
+                            String firstName = parsedName.getString("first");
+                            String firstNameCap = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
+                            String lastName = parsedName.getString("last");
+                            String lastNameCap = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+                            String fullName = titleNameCap+". "+firstNameCap+" "+lastNameCap;
 
+                            JSONObject parsedLocation = aux.getJSONObject("location");
+                            String location = parsedLocation.getString("street");
+
+                            JSONObject parsedLogin = aux.getJSONObject("login");
+                            String username = parsedLogin.getString("username");
+                            String password = parsedLogin.getString("password");
+
+                            JSONObject parsedPicture = aux.getJSONObject("picture");
+                            String picture = parsedPicture.getString("medium");
+
+                            //Usuario usr = new Usuario(fullName, gender, location, picture, registered, login);
+
+                            ContentValues values = new ContentValues();
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME, fullName);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER, gender);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, location);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE, picture);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED, registered);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME, username);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, password);
+
+                            long newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                            usersAdded++;
+                        }
                     }
-                    JSONObject aux = listaResultado.getJSONObject(0);
-                    Log.d("PRUEBA8", "Usuario 0: "+aux);
 
-                    String gender = aux.getString("gender");
-                    String name = aux.getString("name");
-                    String location = aux.getString("location");
-                    String login = aux.getString("login");
-                    String registered = aux.getString("registered");
-                    String picture = aux.getString("picture");
-
-                    Log.d("PRUEBA9","Genero de usuario 0: "+gender);
-                    Log.d("PRUEBA9","Nombre de usuario 0: "+name);
-                    Log.d("PRUEBA9","Location de usuario 0: "+location);
-
-                    //TAREAS FUTURAS: Parsear el json, guardarlo en la BBDD y recuperarlo
-
-
-
+                    //TOAST CON USERSADDED
+                    Toast toast = Toast.makeText(c, "Se han añadido "+usersAdded+" usuarios.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 catch(Exception e) {
                     Log.e("ERROR", e.getMessage(), e);
