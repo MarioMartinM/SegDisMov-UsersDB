@@ -1,5 +1,8 @@
 package com.practica_1.seguridaddismov.practica_1;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,7 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.prefs.Preferences;
-//import java.net.Authenticator;
+
 
 public class insertar_usuarios extends AppCompatActivity {
 
@@ -35,6 +38,7 @@ public class insertar_usuarios extends AppCompatActivity {
     EditText txtFechaRegistro;
     StringBuilder API_URL_BUILD = new StringBuilder();
     String API_URL="";
+    Context c = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,45 +65,6 @@ public class insertar_usuarios extends AppCompatActivity {
                 API_URL_BUILD.append("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
 
                 try {
-                    /*
-                    if(!nacionalidad.equals("")) {
-                         API_URL_BUILD.append("nat="+nacionalidad.toUpperCase());
-                          aux = 1;
-                    }
-                    if(txtHombre.isChecked() && !txtMujer.isChecked()) {
-                        if (aux == 1) {
-                            API_URL_BUILD.append("&gender=male");
-                        } else {
-                            API_URL_BUILD.append("gender=male");
-                            aux = 1;
-                        }
-                    }
-                    if(!txtHombre.isChecked() && txtMujer.isChecked()) {
-                        if (aux == 1) {
-                            API_URL_BUILD.append("&gender=female");
-                        } else {
-                            API_URL_BUILD.append("gender=female");
-                            aux = 1;
-                        }
-                    }
-                    if(!numeroUsuarios.equals("")) {
-                        if (aux == 1) {
-                            API_URL_BUILD.append("&results=" + numeroUsuarios);
-                        } else {
-                            API_URL_BUILD.append("results=" + numeroUsuarios);
-                            aux = 1;
-                        }
-                    }
-                    if(!fechaRegistro.equals("")) {
-                        if (aux == 1) {
-                            API_URL_BUILD.append("&registered=" + fechaRegistro);
-                        } else {
-                            API_URL_BUILD.append("registered=" + fechaRegistro);
-                            aux = 1;
-                        }
-                    }*/
-
-
                     if(!nacionalidad.equals("")) {
                          API_URL_BUILD.append("&nat="+nacionalidad.toUpperCase());
                     }
@@ -129,6 +94,9 @@ public class insertar_usuarios extends AppCompatActivity {
                     JSONArray listaResultado = objectJson.getJSONArray("results");
                     Log.d("PRUEBA7", "Lista de usuarios2: "+listaResultado);
 
+                    FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(c);
+                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
                     for(int i=0; i<listaResultado.length(); i++){
                         JSONObject aux = listaResultado.getJSONObject(i);
 
@@ -141,7 +109,15 @@ public class insertar_usuarios extends AppCompatActivity {
 
                         Usuario usr = new Usuario(name, gender, location, picture, registered, login);
 
-                        //METER EN LA BASE DE DATOS
+                        ContentValues values = new ContentValues();
+                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME, name);
+                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER, gender);
+                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, location);
+                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE, picture);
+                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED, registered);
+                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOGIN, login);
+
+                        long newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
 
                     }
                     JSONObject aux = listaResultado.getJSONObject(0);
