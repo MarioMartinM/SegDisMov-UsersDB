@@ -10,15 +10,17 @@ public class Usuario {
     private String localizacion;
     private String imagenPerfil;
     private String fechaRegistro;
-    private String datosLogin;
+    private String usuario;
+    private String contrasena;
 
-    public Usuario (String nombre, String genero, String localizacion, String imagenPerfil, String fechaRegistro, String datosLogin){
+    public Usuario (String nombre, String genero, String localizacion, String imagenPerfil, String fechaRegistro, String usuario, String contrasena){
         this.nombre = nombre;
         this.genero = genero;
         this.localizacion = localizacion;
         this.imagenPerfil = imagenPerfil;
         this.fechaRegistro = fechaRegistro;
-        this.datosLogin = datosLogin;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
     }
 
     public String getNombre() {
@@ -61,11 +63,19 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getDatosLogin() {
-        return datosLogin;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setDatosLogin(String datosLoggin) {
-        this.datosLogin = datosLoggin;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }

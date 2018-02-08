@@ -14,6 +14,7 @@ import android.widget.Button;
 public class Pantalla_presentacion extends AppCompatActivity {
 
     Button insertar;
+    Button listar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,6 @@ public class Pantalla_presentacion extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         insertar = (Button)findViewById(R.id.Insertar);
-
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,6 +31,16 @@ public class Pantalla_presentacion extends AppCompatActivity {
                 startActivity(abrirInsertar);
             }
         });
+
+        listar = (Button)findViewById(R.id.Listar);
+        listar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent abrirListar = new Intent("android.intent.action.LISTAR");
+                startActivity(abrirListar);
+            }
+        });
+
 
     }
 

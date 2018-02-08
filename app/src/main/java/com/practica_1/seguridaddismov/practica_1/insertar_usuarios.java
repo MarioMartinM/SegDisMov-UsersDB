@@ -121,6 +121,8 @@ public class insertar_usuarios extends AppCompatActivity {
                                 gender = "F";
                             }
 
+                            // PARSEAR FECHA PARA OBTENER dd/MM/yyyy
+
                             // Se obtiene el nombre completo
                             JSONObject parsedName = aux.getJSONObject("name");
                             String titleName = parsedName.getString("title");
@@ -168,7 +170,7 @@ public class insertar_usuarios extends AppCompatActivity {
 
 
 
-                    // Se preparan las variables necesarias para leer de la BBDD
+                    /*// Se preparan las variables necesarias para leer de la BBDD
                     SQLiteDatabase db2 = mDbHelper.getReadableDatabase();
 
                     // Se define una proyeccion para especificar las columnas que se van a usar de la query
@@ -208,11 +210,11 @@ public class insertar_usuarios extends AppCompatActivity {
                                                 "\n- Picture: "+itemPicture+
                                                 "\n- Username: "+itemUsername+
                                                 "\n- Password: "+itemPassword
-                    );
+                    );*/
 
                     // Finalmente se regresa a la pantalla principal
-                    // Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
-                    // startActivity(paginaPrincipal);
+                    Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
+                    startActivity(paginaPrincipal);
                 }
                 catch(Exception e) {
                     Log.e("ERROR", e.getMessage(), e);
