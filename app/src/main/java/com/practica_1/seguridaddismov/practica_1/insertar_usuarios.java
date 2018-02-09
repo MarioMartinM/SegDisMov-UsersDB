@@ -121,7 +121,13 @@ public class insertar_usuarios extends AppCompatActivity {
                                 gender = "F";
                             }
 
-                            // PARSEAR FECHA PARA OBTENER dd/MM/yyyy
+                            // Se obtiene unicamente la fecha en formato dd/MM/yyyy de lo obtenido del usuario
+                            registered = registered.split("\\s+")[0];
+                            SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy-MM-dd");
+                            Date auxDate = formatter3.parse(registered);
+                            formatter3.applyPattern("dd/MM/yyyy");
+                            registered = formatter3.format(auxDate);
+
 
                             // Se obtiene el nombre completo
                             JSONObject parsedName = aux.getJSONObject("name");

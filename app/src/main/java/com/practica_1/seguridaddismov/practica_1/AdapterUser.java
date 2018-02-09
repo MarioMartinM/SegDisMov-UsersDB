@@ -2,7 +2,9 @@ package com.practica_1.seguridaddismov.practica_1;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -62,7 +65,13 @@ public class AdapterUser extends BaseAdapter {
         Usuario dir = users.get(position);
 
         ImageView imagenPerfil = (ImageView) v.findViewById(R.id.imageView);
-        imagenPerfil.setImageDrawable(Drawable.createFromPath(dir.getImagenPerfil()));
+        try{
+            URL url = new URL(dir.getImagenPerfil());
+            Bitmap bmp = new obtenerImagen().execute(url).get();
+            imagenPerfil.setImageBitmap(bmp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         TextView nombreLista = (TextView) v.findViewById(R.id.nombreLista);
         nombreLista.setText(dir.getNombre());
@@ -74,5 +83,20 @@ public class AdapterUser extends BaseAdapter {
         generoLista.setText(dir.getGenero());
 
         return v;
+    }
+
+
+
+    // Esta clase se ha creado para que no de error al intentar ejecutar un proceso en backgroud en el thread principal (Acceso a Internet)
+    class obtenerImagen extends AsyncTask<URL, Integer, Bitmap> {
+        protected Bitmap doInBackground(URL ... urls) {
+            Bitmap bmp = null;
+            try {
+                bmp = BitmapFactory.decodeStream(urls[0].openConnection().getInputStream());
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            return bmp;
+        }
     }
 }
