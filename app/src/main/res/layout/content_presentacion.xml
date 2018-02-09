@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.practica_1.seguridaddismov.practica_1.Pantalla_presentacion"
-    tools:showIn="@layout/activity_pantalla_presentacion">
+    tools:context="com.practica_1.seguridaddismov.practica_1.presentacion"
+    tools:showIn="@layout/activity_presentacion">
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +39,6 @@
         android:layout_marginTop="50dp"
         android:width="300dp"
         android:height="70dp"
-
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

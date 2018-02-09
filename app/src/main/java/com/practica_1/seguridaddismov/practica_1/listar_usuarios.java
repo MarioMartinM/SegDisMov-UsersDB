@@ -1,6 +1,5 @@
 package com.practica_1.seguridaddismov.practica_1;
 
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,13 +15,8 @@ public class listar_usuarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_usuarios);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        // Se extraen los usuarios de la BBDD
-        // Se añaden a un ArrayList<Usuarios>
-        // Se crea la lista
 
         // Se preparan las variables necesarias para leer de la BBDD
         FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(this);
@@ -51,7 +45,7 @@ public class listar_usuarios extends AppCompatActivity {
         );
 
 
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        ArrayList<Usuario> usuarios = new ArrayList<>();
         String itemName, itemGender, itemLocation, itemPicture, itemRegister, itemUsername, itemPassword;
         for (int i = 0; i < cursor.getCount(); i++){
             if (i == 0){
@@ -86,10 +80,9 @@ public class listar_usuarios extends AppCompatActivity {
             }
         }
 
-        ListView lv = (ListView) findViewById(R.id.listaUsuarios);
+        cursor.close();
+        ListView lv = findViewById(R.id.listaUsuarios);
         AdapterUser adapter = new AdapterUser(this, usuarios);
         lv.setAdapter(adapter);
     }
-
-
 }

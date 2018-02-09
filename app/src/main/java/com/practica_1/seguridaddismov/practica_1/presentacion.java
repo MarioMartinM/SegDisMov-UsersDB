@@ -2,8 +2,6 @@ package com.practica_1.seguridaddismov.practica_1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-public class Pantalla_presentacion extends AppCompatActivity {
+public class presentacion extends AppCompatActivity {
 
     Button insertar;
     Button listar;
@@ -19,11 +17,11 @@ public class Pantalla_presentacion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla_presentacion);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_presentacion);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        insertar = (Button)findViewById(R.id.Insertar);
+        insertar = findViewById(R.id.Insertar);
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,7 +30,7 @@ public class Pantalla_presentacion extends AppCompatActivity {
             }
         });
 
-        listar = (Button)findViewById(R.id.Listar);
+        listar = findViewById(R.id.Listar);
         listar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,8 +38,6 @@ public class Pantalla_presentacion extends AppCompatActivity {
                 startActivity(abrirListar);
             }
         });
-
-
     }
 
     @Override

@@ -17,8 +17,7 @@
         android:textAlignment="center"
         android:textColor="#000207"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textNacionalidad"
@@ -72,7 +71,6 @@
         android:layout_alignEnd="@+id/editNacionalidad"
         android:layout_marginEnd="61dp"
         android:text="@string/opcion_mujer" />
-
 
     <TextView
         android:id="@+id/textNumeroUsuarios"
@@ -130,6 +128,5 @@
         android:layout_marginTop="18dp"
         android:width="200dp"
         android:text="@string/boton1_pagina2" />
-
 
 </RelativeLayout>

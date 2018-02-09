@@ -3,7 +3,6 @@ package com.practica_1.seguridaddismov.practica_1;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,16 +42,16 @@ public class insertar_usuarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insertar_usuarios);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Se cargan los elementos de la actividad en las variables globales
-        insertarUsuarios = (Button)findViewById(R.id.InsertarUsuarios);
-        txtNacionalidad = (EditText)findViewById(R.id.editNacionalidad);
-        txtHombre = (CheckBox) findViewById(R.id.radioHombre);
-        txtMujer = (CheckBox) findViewById(R.id.radioMujer);
-        txtNumeroUsuarios = (EditText)findViewById(R.id.editNumeroUsuarios);
-        txtFechaRegistro = (EditText)findViewById(R.id.editFechaRegistro);
+        insertarUsuarios = findViewById(R.id.InsertarUsuarios);
+        txtNacionalidad = findViewById(R.id.editNacionalidad);
+        txtHombre = findViewById(R.id.radioHombre);
+        txtMujer = findViewById(R.id.radioMujer);
+        txtNumeroUsuarios = findViewById(R.id.editNumeroUsuarios);
+        txtFechaRegistro = findViewById(R.id.editFechaRegistro);
 
         // Esta es la funcion que se realiza cada vez que se pulse el boton "Insertar usuarios"
         insertarUsuarios.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +163,7 @@ public class insertar_usuarios extends AppCompatActivity {
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, password);
 
                             // Se inserta el nuevo usuario en la BBDD y se aumenta el contador de usuarios
-                            long newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                            db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                             usersAdded++;
                         }
                     }
@@ -172,51 +171,6 @@ public class insertar_usuarios extends AppCompatActivity {
                     // Una vez se han recorrido todos los usuarios, se muestra el numero de usuarios que finalmente se han añadido
                     Toast toast = Toast.makeText(context, "Se han añadido "+usersAdded+" usuarios.", Toast.LENGTH_LONG);
                     toast.show();
-
-
-
-
-                    /*// Se preparan las variables necesarias para leer de la BBDD
-                    SQLiteDatabase db2 = mDbHelper.getReadableDatabase();
-
-                    // Se define una proyeccion para especificar las columnas que se van a usar de la query
-                    String[] projection = {
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_NAME,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD
-                    };
-
-                    // El resultado de la query se devuelve en un objeto Cursor
-                    Cursor cursor = db2.query(
-                            FeedReaderContract.FeedEntry.TABLE_NAME,        // The table to query
-                            projection,                                     // The columns to return
-                            null,                                  // The columns for the WHERE clause
-                            null,                               // The values for the WHERE clause
-                            null,                                    // don't group the rows
-                            null,                                     // don't filter by row groups
-                            null                                 // The sort order
-                    );
-
-
-                    cursor.moveToFirst();
-                    String itemName = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME));
-                    String itemGender = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER));
-                    String itemLocation = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION));
-                    String itemPicture = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE));
-                    String itemUsername = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME));
-                    String itemPassword = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD));
-                    Log.d("PRUEBA", "Informacion primer usuario:"+
-                                                "\n- Nombre: "+itemName+
-                                                "\n- Gender: "+itemGender+
-                                                "\n- Location: "+itemLocation+
-                                                "\n- Picture: "+itemPicture+
-                                                "\n- Username: "+itemUsername+
-                                                "\n- Password: "+itemPassword
-                    );*/
 
                     // Finalmente se regresa a la pantalla principal
                     Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
@@ -227,9 +181,7 @@ public class insertar_usuarios extends AppCompatActivity {
                 }
             }
         });
-
     }
-
 
 
     // Esta clase se ha creado para que no de error al intentar ejecutar un proceso en backgroud en el thread principal
