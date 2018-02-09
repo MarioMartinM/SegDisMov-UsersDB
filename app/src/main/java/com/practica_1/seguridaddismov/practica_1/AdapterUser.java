@@ -2,13 +2,18 @@ package com.practica_1.seguridaddismov.practica_1;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,9 +28,11 @@ public class AdapterUser extends BaseAdapter {
     protected Activity activity;
     protected ArrayList<Usuario> users;
 
+
     public AdapterUser (Activity activity, ArrayList<Usuario> users){
         this.activity = activity;
         this.users = users;
+
     }
 
     @Override
@@ -60,9 +67,10 @@ public class AdapterUser extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inf.inflate(R.layout.fila_lista, null);
+            //v = LayoutInflater.from(getContext()).inflate(R.layout.list_users, parent, false);
         }
 
-        Usuario dir = users.get(position);
+        final Usuario dir = users.get(position);
 
         ImageView imagenPerfil = (ImageView) v.findViewById(R.id.imageView);
         try{
@@ -81,6 +89,36 @@ public class AdapterUser extends BaseAdapter {
 
         TextView generoLista = (TextView) v.findViewById(R.id.generoLista);
         generoLista.setText(dir.getGenero());
+
+
+
+            TextView passwordLista = (TextView) v.findViewById(R.id.passwordLista);
+            TextView usuarioLista = (TextView) v.findViewById(R.id.usuarioLista);
+            if(usuarioLista != null || passwordLista != null){
+                usuarioLista.setText(dir.getUsuario());
+                passwordLista.setText(dir.getContrasena());
+            }
+
+
+            ImageButton mapa = (ImageButton)v.findViewById(R.id.buttonMaps);
+            if(mapa!=null) {
+                mapa.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + dir.getLocalizacion());
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        activity.startActivity(mapIntent);
+                    }
+                });
+            }
+
+
+
+
+
+
+
 
         return v;
     }

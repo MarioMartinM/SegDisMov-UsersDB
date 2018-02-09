@@ -22,6 +22,10 @@
     <string name="genero_ejemplo">M/F</string>
     <string name="nacionalidad_ph">ES, FR, GB, US, AU, BR, CA, CH, DE, DK, FI</string>
     <string name="numero_usuarios_ph">1, 2, 3...</string>
+    <string name="usuario">Usuario:</string>
+    <string name="usuario_ejemplo">mariete1024</string>
+    <string name="password">Contraseña:</string>
+    <string name="password_ejemplo">marl01234</string>
 
 
 </resources>

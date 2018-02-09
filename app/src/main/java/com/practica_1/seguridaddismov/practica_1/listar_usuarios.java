@@ -1,5 +1,6 @@
 package com.practica_1.seguridaddismov.practica_1;
 
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -89,4 +90,6 @@ public class listar_usuarios extends AppCompatActivity {
         AdapterUser adapter = new AdapterUser(this, usuarios);
         lv.setAdapter(adapter);
     }
+
+
 }

@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
@@ -22,12 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView"
-        android:layout_marginStart="11dp"
-        android:textStyle="bold"
+        android:layout_marginStart="30dp"
         android:layout_toEndOf="@+id/imageView"
         android:text="@string/nombre"
         android:textColor="#00040a"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nombreLista"
@@ -42,23 +40,72 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/registroLista1"
+        android:id="@+id/usuarioLista1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/nombreLista1"
         android:layout_below="@+id/nombreLista1"
-        android:textStyle="bold"
-        android:text="@string/fecha_registro"
+        android:layout_marginTop="9dp"
+        android:text="@string/usuario"
+        android:textColor="#00040a"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/usuarioLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/usuarioLista1"
+        android:layout_alignBottom="@+id/usuarioLista1"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/usuarioLista1"
+        android:text="@string/usuario_ejemplo"
         android:textColor="#00040a"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/passwordLista1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/usuarioLista"
+        android:layout_alignBottom="@+id/usuarioLista"
+        android:layout_marginStart="21dp"
+        android:layout_toEndOf="@+id/registroLista"
+        android:text="@string/password"
+        android:textColor="#00040a"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/passwordLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/passwordLista1"
+        android:layout_marginStart="5dp"
+        android:layout_alignBottom="@+id/passwordLista1"
+        android:layout_toEndOf="@+id/passwordLista1"
+        android:text="@string/password_ejemplo"
+        android:textColor="#00040a"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/registroLista1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignStart="@+id/usuarioLista1"
+        android:text="@string/fecha_registro"
+        android:textColor="#00040a"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/registroLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_alignBaseline="@+id/registroLista1"
         android:layout_alignBottom="@+id/registroLista1"
-        android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/registroLista1"
         android:text="@string/fecha_registro_ejemplo"
         android:textColor="#00040a"
@@ -68,12 +115,13 @@
         android:id="@+id/generoLista1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/registroLista1"
-        android:layout_below="@+id/registroLista1"
-        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/nombreLista"
+        android:layout_alignBottom="@+id/nombreLista"
+        android:layout_alignStart="@+id/passwordLista1"
         android:text="@string/genero"
         android:textColor="#00040a"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/generoLista"
@@ -86,14 +134,5 @@
         android:text="@string/genero_ejemplo"
         android:textColor="#00040a"
         android:textSize="14sp" />
-
-    <ImageButton
-        android:id="@+id/buttonMaps"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/nombreLista"
-        android:layout_marginTop="7dp"
-        app:srcCompat="@drawable/maps" />
 
 </RelativeLayout>

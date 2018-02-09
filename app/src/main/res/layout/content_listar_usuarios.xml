@@ -10,8 +10,8 @@
 
     <ListView
         android:id="@+id/listaUsuarios"
-        android:layout_width="344dp"
-        android:layout_height="495dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:divider="#FF4081"
