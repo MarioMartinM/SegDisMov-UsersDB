@@ -29,8 +29,8 @@
     <string name="title_activity_perfil_usuario">Nombre_APP</string>
     <string name="datos_del_usuario">Datos del usuario:</string>
     <string name="localizaci_n">Localización:</string>
-    <string name="ok">OK</string>
-    <string name="cancel">CANCEL</string>
-
+    <string name="guardar">GUARDAR</string>
+    <string name="cancelar">CANCELAR</string>
+    <string name="texto_cambiar_usuario">Introduce el nuevo nombre de usuario</string>
 
 </resources>
