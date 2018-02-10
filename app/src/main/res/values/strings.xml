@@ -32,5 +32,10 @@
     <string name="guardar">GUARDAR</string>
     <string name="cancelar">CANCELAR</string>
     <string name="texto_cambiar_usuario">Introduce el nuevo nombre de usuario</string>
+    <string name="texto_cambiar_localizacion">Introduce la nueva localización del usuario</string>
+    <string name="nuevo_usuario">Usuario</string>
+    <string name="nueva_password">Contraseña</string>
+    <string name="nueva_localizacion">Nueva dirección</string>
+    <string name="texto_cambiar_password">Introduce la nueva contraseña del usuario</string>
 
 </resources>
