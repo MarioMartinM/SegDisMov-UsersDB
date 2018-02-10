@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="">
+
+    <div></div>
+    <TextView
+        android:id="@+id/registroPerfil1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Introduce el nuevo nombre del usuario"
+        android:textAlignment="center"
+        android:textColor="#00040a"
+        android:textScaleX="1"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/registroPerfil1"
+        android:layout_marginTop="14dp"
+        android:hint="Usuario"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="13dp"
+        android:layout_toStartOf="@+id/cancel"
+        android:text="@string/ok" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ok"
+        android:layout_alignBottom="@+id/ok"
+        android:layout_alignEnd="@+id/registroPerfil1"
+        android:layout_marginEnd="49dp"
+        android:text="@string/cancel" />
+
+
+</RelativeLayout>

@@ -26,6 +26,11 @@
     <string name="usuario_ejemplo">mariete1024</string>
     <string name="password">Contraseña:</string>
     <string name="password_ejemplo">marl01234</string>
+    <string name="title_activity_perfil_usuario">Nombre_APP</string>
+    <string name="datos_del_usuario">Datos del usuario:</string>
+    <string name="localizaci_n">Localización:</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 
 
 </resources>
