@@ -61,6 +61,9 @@ public class insertar_usuarios extends AppCompatActivity {
                 String numeroUsuarios = txtNumeroUsuarios.getText().toString();
                 String fechaRegistro = txtFechaRegistro.getText().toString();
 
+                // IF set.error ELSE lo de abajo
+
+
                 try {
                     // Lo primero que se hace es crear la URL para acceder a la API de RandomUser según los campos marcados por el usuario
                     API_URL_BUILD = new StringBuilder("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
@@ -77,15 +80,12 @@ public class insertar_usuarios extends AppCompatActivity {
                             API_URL_BUILD.append("&results=" + numeroUsuarios);
                     }
                     API_URL = API_URL_BUILD.toString();
-                    Log.d("PRUEBA1", "URL BUENA: "+API_URL);
 
 
                     // Resultado de la llamada a la URL de la API y organización en un JSONArray
                     String resultadoURL = new obtenerUsuarios().execute().get();
                     JSONObject objectJson = new JSONObject(resultadoURL);
                     JSONArray listaResultado = objectJson.getJSONArray("results");
-                    Log.d("PRUEBA", "Lista de usuarios: "+resultadoURL);
-                    Log.d("PRUEBA", "Lista de usuarios en array: "+listaResultado);
 
                     // Se preparan las variables para insertar en la BBDD
                     FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(context);

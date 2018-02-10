@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -102,6 +101,32 @@ public class perfil_usuario extends AppCompatActivity {
                 newFragment.show(getFragmentManager(), "editarUsuario");
             }
         });
+
+        ImageButton editarPassword = findViewById(R.id.editarPassword);
+        editarPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new editarPasswordDialog();
+
+                Bundle args = new Bundle();
+                args.putString("name_user", user.getNombre());
+                newFragment.setArguments(args);
+                newFragment.show(getFragmentManager(), "editarPassword");
+            }
+        });
+
+        ImageButton editarLocalizacion = findViewById(R.id.editarLocalizacion);
+        editarLocalizacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new editarLocalizacionDialog();
+
+                Bundle args = new Bundle();
+                args.putString("name_user", user.getNombre());
+                newFragment.setArguments(args);
+                newFragment.show(getFragmentManager(), "editarLocalizacion");
+            }
+        });
     }
 
 
@@ -111,7 +136,7 @@ public class perfil_usuario extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = getActivity().getLayoutInflater();
 
-            builder.setView(inflater.inflate(R.layout.modal_editar, null))
+            builder.setView(inflater.inflate(R.layout.modal_editar_usuario, null))
                     .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
@@ -141,6 +166,79 @@ public class perfil_usuario extends AppCompatActivity {
         }
     }
 
+
+    public static class editarPasswordDialog extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+
+            builder.setView(inflater.inflate(R.layout.modal_editar_password, null))
+                    .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(getActivity());
+                            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+                            ContentValues values = new ContentValues();
+                            EditText editText = getDialog().findViewById(R.id.password);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, editText.getText().toString());
+
+                            String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+                            String[] selectionArgs = { getArguments().getString("name_user") };
+
+                            int count = db.update(
+                                    FeedReaderContract.FeedEntry.TABLE_NAME,
+                                    values,
+                                    selection,
+                                    selectionArgs);
+                        }
+                    })
+                    .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Cerrar el modal sin hacer cambios
+                        }
+                    });
+            return builder.create();
+        }
+    }
+
+
+    public static class editarLocalizacionDialog extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+
+            builder.setView(inflater.inflate(R.layout.modal_editar_localizacion, null))
+                    .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(getActivity());
+                            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+                            ContentValues values = new ContentValues();
+                            EditText editText = getDialog().findViewById(R.id.location);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, editText.getText().toString());
+
+                            String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+                            String[] selectionArgs = { getArguments().getString("name_user") };
+
+                            int count = db.update(
+                                    FeedReaderContract.FeedEntry.TABLE_NAME,
+                                    values,
+                                    selection,
+                                    selectionArgs);
+                        }
+                    })
+                    .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Cerrar el modal sin hacer cambios
+                        }
+                    });
+            return builder.create();
+        }
+    }
 
 
     // Esta clase se ha creado para que no de error al intentar ejecutar un proceso en backgroud en el thread principal (Acceso a Internet)
