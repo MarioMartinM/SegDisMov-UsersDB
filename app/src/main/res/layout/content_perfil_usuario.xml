@@ -15,7 +15,6 @@
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-
         android:layout_marginTop="15dp"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -203,41 +202,38 @@
         android:layout_alignStart="@+id/imageView6"
         app:srcCompat="@drawable/password" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/editarLocalizacion"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/localizacionPerfil1"
-        android:layout_toEndOf="@+id/registroPerfil"
-        android:clickable="true"
-        app:srcCompat="@drawable/editar" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/editarUsuario"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editarLocalizacion"
-        android:layout_below="@+id/buttonMapsPerfil"
-        android:clickable="true"
-        app:srcCompat="@drawable/editar" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/editarContrasena"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editarUsuario"
-        android:layout_alignTop="@+id/imageView7"
-        android:clickable="true"
-        app:srcCompat="@drawable/editar" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/botonEliminar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:clickable="true"
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="37dp"
+        android:layout_height="39dp"
+        android:layout_below="@+id/passwordPerfil"
+        android:layout_marginTop="13dp"
+        android:layout_toEndOf="@+id/localizacionPerfil1"
         app:srcCompat="@drawable/eliminar" />
+
+    <ImageButton
+        android:id="@+id/editarLocalizacion"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignEnd="@+id/registroPerfil"
+        android:layout_alignTop="@+id/localizacionPerfil1"
+        app:srcCompat="@drawable/editar" />
+
+    <ImageButton
+        android:id="@+id/editarUsuario"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/usuarioPerfil"
+        android:layout_alignStart="@+id/editarLocalizacion"
+        app:srcCompat="@drawable/editar" />
+
+    <ImageButton
+        android:id="@+id/editarPassword"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/passwordPerfil"
+        android:layout_alignStart="@+id/editarUsuario"
+        app:srcCompat="@drawable/editar" />
+
 
 </RelativeLayout>
