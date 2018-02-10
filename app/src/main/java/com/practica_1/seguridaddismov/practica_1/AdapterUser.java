@@ -60,7 +60,7 @@ public class AdapterUser extends BaseAdapter {
 
         final Usuario dir = users.get(position);
 
-        ImageView imagenPerfil = (ImageView) v.findViewById(R.id.imageView);
+        ImageView imagenPerfil = v.findViewById(R.id.imageView);
         try{
             URL url = new URL(dir.getImagenPerfil());
             Bitmap bmp = new obtenerImagen().execute(url).get();
@@ -69,23 +69,23 @@ public class AdapterUser extends BaseAdapter {
             e.printStackTrace();
         }
 
-        TextView nombreLista = (TextView) v.findViewById(R.id.nombreLista);
+        TextView nombreLista = v.findViewById(R.id.nombreLista);
         nombreLista.setText(dir.getNombre());
 
-        TextView registroLista = (TextView) v.findViewById(R.id.registroLista);
+        TextView registroLista = v.findViewById(R.id.registroLista);
         registroLista.setText(dir.getFechaRegistro());
 
-        TextView generoLista = (TextView) v.findViewById(R.id.generoLista);
+        TextView generoLista = v.findViewById(R.id.generoLista);
         generoLista.setText(dir.getGenero());
 
-        TextView passwordLista = (TextView) v.findViewById(R.id.passwordLista);
-        TextView usuarioLista = (TextView) v.findViewById(R.id.usuarioLista);
+        TextView passwordLista = v.findViewById(R.id.passwordLista);
+        TextView usuarioLista = v.findViewById(R.id.usuarioLista);
         if(usuarioLista != null || passwordLista != null){
             usuarioLista.setText(dir.getUsuario());
             passwordLista.setText(dir.getContrasena());
         }
 
-        ImageButton mapa = (ImageButton)v.findViewById(R.id.buttonMaps);
+        ImageButton mapa = v.findViewById(R.id.buttonMaps);
         if(mapa!=null) {
             mapa.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -150,6 +150,7 @@ public class insertar_usuarios extends AppCompatActivity {
                             // Se obtiene la imagen mediana del usuario
                             JSONObject parsedPicture = aux.getJSONObject("picture");
                             String picture = parsedPicture.getString("medium");
+                            String largePicture = parsedPicture.getString("large");
 
 
                             // Se prepara un ContentValues con los datos para realizar la insercion en la BBDD
@@ -158,6 +159,7 @@ public class insertar_usuarios extends AppCompatActivity {
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER, gender);
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, location);
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE, picture);
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LARGEPICTURE, largePicture);
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED, registered);
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME, username);
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, password);

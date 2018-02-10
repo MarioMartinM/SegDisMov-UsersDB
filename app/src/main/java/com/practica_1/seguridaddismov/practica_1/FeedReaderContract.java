@@ -17,6 +17,7 @@ public final class FeedReaderContract {
         public static final String COLUMN_NAME_GENDER = "gender";
         public static final String COLUMN_NAME_LOCATION = "location";
         public static final String COLUMN_NAME_PICTURE = "picture";
+        public static final String COLUMN_NAME_LARGEPICTURE = "largepicture";
         public static final String COLUMN_NAME_REGISTERED = "registered";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_PASSWORD = "password";
@@ -32,6 +33,7 @@ public final class FeedReaderContract {
                     FeedEntry.COLUMN_NAME_GENDER + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_LOCATION + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_PICTURE + TEXT_TYPE + COMMA_SEP +
+                    FeedEntry.COLUMN_NAME_LARGEPICTURE + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_REGISTERED + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_USERNAME + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + " )";
@@ -44,7 +46,7 @@ public final class FeedReaderContract {
     // Clase para la creacion de la base de datos
     public static class FeedReaderDbHelper extends SQLiteOpenHelper {
         // If you change the database schema, you must increment the database version.
-        public static final int DATABASE_VERSION = 2;
+        public static final int DATABASE_VERSION = 4;
         public static final String DATABASE_NAME = "usuariosDB.db";
 
         public FeedReaderDbHelper(Context context) {

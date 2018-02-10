@@ -1,11 +1,14 @@
 package com.practica_1.seguridaddismov.practica_1;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
@@ -28,6 +31,7 @@ public class listar_usuarios extends AppCompatActivity {
                 FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE,
+                FeedReaderContract.FeedEntry.COLUMN_NAME_LARGEPICTURE,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD
@@ -46,7 +50,7 @@ public class listar_usuarios extends AppCompatActivity {
 
 
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        String itemName, itemGender, itemLocation, itemPicture, itemRegister, itemUsername, itemPassword;
+        String itemName, itemGender, itemLocation, itemPicture, itemLargePicture, itemRegister, itemUsername, itemPassword;
         for (int i = 0; i < cursor.getCount(); i++){
             if (i == 0){
                 // Se accede al primer resultado devuelto
@@ -60,29 +64,28 @@ public class listar_usuarios extends AppCompatActivity {
             itemGender = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER));
             itemLocation = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION));
             itemPicture = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE));
+            itemLargePicture = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_LARGEPICTURE));
             itemRegister = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED));
             itemUsername = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME));
             itemPassword = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD));
 
-            Usuario aux = new Usuario(itemName, itemGender, itemLocation, itemPicture, itemRegister, itemUsername, itemPassword);
+            Usuario aux = new Usuario(itemName, itemGender, itemLocation, itemPicture, itemLargePicture, itemRegister, itemUsername, itemPassword);
             usuarios.add(aux);
-
-            if (i == 0){
-                Log.d("PRUEBA", "Informacion primer usuario:"+
-                        "\n- Nombre: "+aux.getNombre()+
-                        "\n- Gender: "+aux.getGenero()+
-                        "\n- Registered: "+aux.getFechaRegistro()+
-                        "\n- Location: "+aux.getLocalizacion()+
-                        "\n- Picture: "+aux.getImagenPerfil()+
-                        "\n- Username: "+aux.getUsuario()+
-                        "\n- Password: "+aux.getContrasena()
-                );
-            }
         }
 
         cursor.close();
         ListView lv = findViewById(R.id.listaUsuarios);
         AdapterUser adapter = new AdapterUser(this, usuarios);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                Usuario item = (Usuario) adapter.getItemAtPosition(position);
+
+                Intent abrirPerfil = new Intent("android.intent.action.PERFIL");
+                abrirPerfil.putExtra("Usuario", item);
+                startActivity(abrirPerfil);
+            }
+        });
         lv.setAdapter(adapter);
     }
 }

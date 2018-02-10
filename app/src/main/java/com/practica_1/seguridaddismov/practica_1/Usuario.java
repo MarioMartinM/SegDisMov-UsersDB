@@ -1,23 +1,27 @@
 package com.practica_1.seguridaddismov.practica_1;
 
+import java.io.Serializable;
+
 /**
  * Created by Mario Martin on 06/02/2018.
  */
 
-public class Usuario {
+public class Usuario implements Serializable {
     private String nombre;
     private String genero;
     private String localizacion;
     private String imagenPerfil;
+    private String imagenPerfilGrande;
     private String fechaRegistro;
     private String usuario;
     private String contrasena;
 
-    public Usuario (String nombre, String genero, String localizacion, String imagenPerfil, String fechaRegistro, String usuario, String contrasena){
+    public Usuario (String nombre, String genero, String localizacion, String imagenPerfil, String imagenPerfilGrande, String fechaRegistro, String usuario, String contrasena){
         this.nombre = nombre;
         this.genero = genero;
         this.localizacion = localizacion;
         this.imagenPerfil = imagenPerfil;
+        this.imagenPerfilGrande = imagenPerfilGrande;
         this.fechaRegistro = fechaRegistro;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -77,5 +81,13 @@ public class Usuario {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getImagenPerfilGrande() {
+        return imagenPerfilGrande;
+    }
+
+    public void setImagenPerfilGrande(String imagenPerfilGrande) {
+        this.imagenPerfilGrande = imagenPerfilGrande;
     }
 }
