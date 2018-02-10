@@ -204,53 +204,34 @@
         app:srcCompat="@drawable/password" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/editarLocalizacion"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/registroPerfil"
-        android:layout_marginStart="14dp"
+        android:layout_alignTop="@+id/localizacionPerfil1"
         android:layout_toEndOf="@+id/registroPerfil"
         android:clickable="true"
         app:srcCompat="@drawable/editar" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton4"
+        android:id="@+id/editarUsuario"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView4"
-        android:layout_alignStart="@+id/floatingActionButton3"
+        android:layout_alignStart="@+id/editarLocalizacion"
+        android:layout_below="@+id/buttonMapsPerfil"
         android:clickable="true"
         app:srcCompat="@drawable/editar" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton5"
+        android:id="@+id/editarContrasena"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView5"
-        android:layout_alignStart="@+id/floatingActionButton4"
+        android:layout_alignStart="@+id/editarUsuario"
+        android:layout_alignTop="@+id/imageView7"
         android:clickable="true"
         app:srcCompat="@drawable/editar" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton6"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView6"
-        android:layout_alignStart="@+id/floatingActionButton5"
-        android:clickable="true"
-        app:srcCompat="@drawable/editar" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton7"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView7"
-        android:layout_alignStart="@+id/floatingActionButton6"
-        android:clickable="true"
-        app:srcCompat="@drawable/editar" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton9"
+        android:id="@+id/botonEliminar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -258,6 +239,5 @@
         android:layout_marginBottom="14dp"
         android:clickable="true"
         app:srcCompat="@drawable/eliminar" />
-
 
 </RelativeLayout>

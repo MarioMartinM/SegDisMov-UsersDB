@@ -1,7 +1,10 @@
 package com.practica_1.seguridaddismov.practica_1;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,10 +20,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.URL;
 
 public class perfil_usuario extends AppCompatActivity {
+    public Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,54 @@ public class perfil_usuario extends AppCompatActivity {
                 startActivity(mapIntent);
             }
         });
+
+
+        // Activamos el boton para eliminar el usuario
+        FloatingActionButton eliminarPerfil = findViewById(R.id.botonEliminar);
+        eliminarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(context);
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+                String[] selectionArgs = { user.getNombre() };
+                db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, selection, selectionArgs);
+
+                Intent abrirListar = new Intent("android.intent.action.LISTAR");
+                startActivity(abrirListar);
+                Toast toast = Toast.makeText(context, "El usuario ha sido correctamente eliminado", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+
+
+        /*
+        // Activamos los botones para cambiar los datos
+        FloatingActionButton cambiarNombre = findViewById(R.id.botonEliminar);
+        eliminarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(context);
+                SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+
+                String selection = FeedEntry.COLUMN_NAME_TITLE + " LIKE ?";
+                String[] selectionArgs = { "MyTitle" };
+
+                int count = db.update(
+                        FeedReaderDbHelper.FeedEntry.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs);
+            }
+        });*/
     }
+
+
+
+
 
     // Esta clase se ha creado para que no de error al intentar ejecutar un proceso en backgroud en el thread principal (Acceso a Internet)
     class obtenerImagen extends AsyncTask<URL, Integer, Bitmap> {
