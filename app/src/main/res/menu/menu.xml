@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.practica_1.seguridaddismov.practica_1.pagina_principal">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/listarMenu"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Listar usuarios"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/insertarMenu"
+        android:orderInCategory="100"
+        android:title="Insertar usuarios"
         app:showAsAction="never" />
 </menu>

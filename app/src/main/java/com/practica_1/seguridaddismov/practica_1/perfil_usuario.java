@@ -16,6 +16,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -252,5 +254,32 @@ public class perfil_usuario extends AppCompatActivity {
             }
             return bmp;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.listarMenu) {
+            Intent abrirListar = new Intent("android.intent.action.LISTAR");
+            startActivity(abrirListar);
+            return true;
+        }
+
+        if (id == R.id.insertarMenu) {
+            Intent abrirInsertar = new Intent("android.intent.action.INSERTAR");
+            startActivity(abrirInsertar);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

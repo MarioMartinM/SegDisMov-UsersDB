@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -60,127 +63,152 @@ public class insertar_usuarios extends AppCompatActivity {
                 String nacionalidad = txtNacionalidad.getText().toString();
                 String numeroUsuarios = txtNumeroUsuarios.getText().toString();
                 String fechaRegistro = txtFechaRegistro.getText().toString();
+                SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+                int continuar = 0;
 
-                // IF set.error ELSE lo de abajo
+
+                /* Validación del campo nacionalidad */
+                if(!nacionalidad.equals("")&&(!nacionalidad.equals("AU")||!nacionalidad.equals("BR")||!nacionalidad.equals("CA")||!nacionalidad.equals("CH")
+                        ||!nacionalidad.equals("DE")||!nacionalidad.equals("DK")||!nacionalidad.equals("ES")||!nacionalidad.equals("FI")
+                        ||!nacionalidad.equals("FR")||!nacionalidad.equals("GB")||!nacionalidad.equals("IE")||!nacionalidad.equals("IR")
+                        ||!nacionalidad.equals("NL")||!nacionalidad.equals("NZ")||!nacionalidad.equals("TR")||!nacionalidad.equals("US"))){
+                    txtNacionalidad.setError("Introduce una de las nacionalidades disponibles");
+                    continuar = 1;
+                }
 
 
-                try {
-                    // Lo primero que se hace es crear la URL para acceder a la API de RandomUser según los campos marcados por el usuario
-                    API_URL_BUILD = new StringBuilder("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
-                    if(!nacionalidad.equals("")) {
-                         API_URL_BUILD.append("&nat="+nacionalidad.toUpperCase());
+                /* Validación del campo fecha de registro */
+                Date specifiedDate = new Date();
+                if (!fechaRegistro.equals("")){
+                    try {
+                        specifiedDate = formatter2.parse(txtFechaRegistro.getText().toString());
+                        continuar = 1;
+                    } catch (ParseException e) {
+                       txtFechaRegistro.setError("Introduce un formato válido (dd/mm/yyyy)");
                     }
-                    if(txtHombre.isChecked() && !txtMujer.isChecked()) {
+                }
+
+
+                if(continuar == 0){
+                    try {
+                        // Lo primero que se hace es crear la URL para acceder a la API de RandomUser según los campos marcados por el usuario
+                        API_URL_BUILD = new StringBuilder("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
+                        if(!nacionalidad.equals("")) {
+                            API_URL_BUILD.append("&nat="+nacionalidad.toUpperCase());
+                        }
+                        if(txtHombre.isChecked() && !txtMujer.isChecked()) {
                             API_URL_BUILD.append("&gender=male");
-                    }
-                    if(!txtHombre.isChecked() && txtMujer.isChecked()) {
+                        }
+                        if(!txtHombre.isChecked() && txtMujer.isChecked()) {
                             API_URL_BUILD.append("&gender=female");
-                    }
-                    if(!numeroUsuarios.equals("")) {
+                        }
+                        if(!numeroUsuarios.equals("")) {
                             API_URL_BUILD.append("&results=" + numeroUsuarios);
-                    }
-                    API_URL = API_URL_BUILD.toString();
-
-
-                    // Resultado de la llamada a la URL de la API y organización en un JSONArray
-                    String resultadoURL = new obtenerUsuarios().execute().get();
-                    JSONObject objectJson = new JSONObject(resultadoURL);
-                    JSONArray listaResultado = objectJson.getJSONArray("results");
-
-                    // Se preparan las variables para insertar en la BBDD
-                    FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(context);
-                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-                    // Se crea un contador para los usuarios que finalmente se incluyan en la BBDD
-                    int usersAdded = 0;
-                    for(int i=0; i<listaResultado.length(); i++){
-                        // Se recorre el JSONArray y se convierte en JSONObject cada elemento del mismo
-                        JSONObject aux = listaResultado.getJSONObject(i);
-
-                        // Se obtiene la fecha de registro del usuario y se convierte en Date
-                        String registered = aux.getString("registered");
-                        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        Date registeredDate = formatter1.parse(registered);
-
-                        // Se convierte en Date la fecha indicada por el usuario en la aplicacion
-                        Date specifiedDate = new Date();
-                        if (!fechaRegistro.equals("")){
-                            SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
-                            specifiedDate = formatter2.parse(txtFechaRegistro.getText().toString());
                         }
+                        API_URL = API_URL_BUILD.toString();
 
-                        // Si la fecha indicada por el usuario esta vacia o es posterior a la del usuario actual, se añade a la BBDD el usuario
-                        if (registeredDate.before(specifiedDate) || fechaRegistro.equals("")){
-                            // Se obtiene M o F para indicar el genero del usuario
-                            String gender = aux.getString("gender");
-                            if (gender.equals("male")){
-                                gender = "M";
-                            }
-                            else {
-                                gender = "F";
+
+                        // Resultado de la llamada a la URL de la API y organización en un JSONArray
+                        String resultadoURL = new obtenerUsuarios().execute().get();
+                        JSONObject objectJson = new JSONObject(resultadoURL);
+                        JSONArray listaResultado = objectJson.getJSONArray("results");
+
+                        // Se preparan las variables para insertar en la BBDD
+                        FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(context);
+                        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+                        // Se crea un contador para los usuarios que finalmente se incluyan en la BBDD
+                        int usersAdded = 0;
+                        for(int i=0; i<listaResultado.length(); i++){
+                            // Se recorre el JSONArray y se convierte en JSONObject cada elemento del mismo
+                            JSONObject aux = listaResultado.getJSONObject(i);
+
+                            // Se obtiene la fecha de registro del usuario y se convierte en Date
+                            String registered = aux.getString("registered");
+                            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                            Date registeredDate = formatter1.parse(registered);
+
+                            // Se convierte en Date la fecha indicada por el usuario en la aplicacion
+                            // MARIO Date specifiedDate = new Date();
+                            if (!fechaRegistro.equals("")){
+                                // MARIO  SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+                                specifiedDate = formatter2.parse(txtFechaRegistro.getText().toString());
                             }
 
-                            // Se obtiene unicamente la fecha en formato dd/MM/yyyy de lo obtenido del usuario
-                            registered = registered.split("\\s+")[0];
-                            SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy-MM-dd");
-                            Date auxDate = formatter3.parse(registered);
-                            formatter3.applyPattern("dd/MM/yyyy");
-                            registered = formatter3.format(auxDate);
+                            // Si la fecha indicada por el usuario esta vacia o es posterior a la del usuario actual, se añade a la BBDD el usuario
+                            if (registeredDate.before(specifiedDate) || fechaRegistro.equals("")){
+                                // Se obtiene M o F para indicar el genero del usuario
+                                String gender = aux.getString("gender");
+                                if (gender.equals("male")){
+                                    gender = "M";
+                                }
+                                else {
+                                    gender = "F";
+                                }
+
+                                // Se obtiene unicamente la fecha en formato dd/MM/yyyy de lo obtenido del usuario
+                                registered = registered.split("\\s+")[0];
+                                SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy-MM-dd");
+                                Date auxDate = formatter3.parse(registered);
+                                formatter3.applyPattern("dd/MM/yyyy");
+                                registered = formatter3.format(auxDate);
 
 
-                            // Se obtiene el nombre completo
-                            JSONObject parsedName = aux.getJSONObject("name");
-                            String titleName = parsedName.getString("title");
-                            String titleNameCap = titleName.substring(0, 1).toUpperCase() + titleName.substring(1);
-                            String firstName = parsedName.getString("first");
-                            String firstNameCap = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
-                            String lastName = parsedName.getString("last");
-                            String lastNameCap = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
-                            String fullName = titleNameCap+" "+firstNameCap+" "+lastNameCap;
+                                // Se obtiene el nombre completo
+                                JSONObject parsedName = aux.getJSONObject("name");
+                                String titleName = parsedName.getString("title");
+                                String titleNameCap = titleName.substring(0, 1).toUpperCase() + titleName.substring(1);
+                                String firstName = parsedName.getString("first");
+                                String firstNameCap = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
+                                String lastName = parsedName.getString("last");
+                                String lastNameCap = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+                                String fullName = titleNameCap+" "+firstNameCap+" "+lastNameCap;
 
-                            // Se obtiene la calle del usuario
-                            JSONObject parsedLocation = aux.getJSONObject("location");
-                            String location = parsedLocation.getString("street");
+                                // Se obtiene la calle del usuario
+                                JSONObject parsedLocation = aux.getJSONObject("location");
+                                String location = parsedLocation.getString("street");
 
-                            // Se obtienen el usuario y la contraseña del usuario
-                            JSONObject parsedLogin = aux.getJSONObject("login");
-                            String username = parsedLogin.getString("username");
-                            String password = parsedLogin.getString("password");
+                                // Se obtienen el usuario y la contraseña del usuario
+                                JSONObject parsedLogin = aux.getJSONObject("login");
+                                String username = parsedLogin.getString("username");
+                                String password = parsedLogin.getString("password");
 
-                            // Se obtiene la imagen mediana del usuario
-                            JSONObject parsedPicture = aux.getJSONObject("picture");
-                            String picture = parsedPicture.getString("medium");
-                            String largePicture = parsedPicture.getString("large");
+                                // Se obtiene la imagen mediana del usuario
+                                JSONObject parsedPicture = aux.getJSONObject("picture");
+                                String picture = parsedPicture.getString("medium");
+                                String largePicture = parsedPicture.getString("large");
 
 
-                            // Se prepara un ContentValues con los datos para realizar la insercion en la BBDD
-                            ContentValues values = new ContentValues();
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME, fullName);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER, gender);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, location);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE, picture);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LARGEPICTURE, largePicture);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED, registered);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME, username);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, password);
+                                // Se prepara un ContentValues con los datos para realizar la insercion en la BBDD
+                                ContentValues values = new ContentValues();
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME, fullName);
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER, gender);
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, location);
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE, picture);
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LARGEPICTURE, largePicture);
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED, registered);
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME, username);
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, password);
 
-                            // Se inserta el nuevo usuario en la BBDD y se aumenta el contador de usuarios
-                            db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
-                            usersAdded++;
+                                // Se inserta el nuevo usuario en la BBDD y se aumenta el contador de usuarios
+                                db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                                usersAdded++;
+                            }
                         }
+
+                        // Una vez se han recorrido todos los usuarios, se muestra el numero de usuarios que finalmente se han añadido
+                        Toast toast = Toast.makeText(context, "Se han añadido "+usersAdded+" usuarios.", Toast.LENGTH_LONG);
+                        toast.show();
+
+                        // Finalmente se regresa a la pantalla principal
+                        Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
+                        startActivity(paginaPrincipal);
                     }
-
-                    // Una vez se han recorrido todos los usuarios, se muestra el numero de usuarios que finalmente se han añadido
-                    Toast toast = Toast.makeText(context, "Se han añadido "+usersAdded+" usuarios.", Toast.LENGTH_LONG);
-                    toast.show();
-
-                    // Finalmente se regresa a la pantalla principal
-                    Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
-                    startActivity(paginaPrincipal);
+                    catch(Exception e) {
+                        Log.e("ERROR", e.getMessage(), e);
+                    }
                 }
-                catch(Exception e) {
-                    Log.e("ERROR", e.getMessage(), e);
-                }
+
             }
         });
     }
@@ -208,5 +236,29 @@ public class insertar_usuarios extends AppCompatActivity {
                 }
                 return null;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        // Se muestra deshabilitada la opcion "Insertar usuarios"
+        menu.findItem(R.id.insertarMenu).setEnabled(false);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.listarMenu) {
+            Intent abrirListar = new Intent("android.intent.action.LISTAR");
+            startActivity(abrirListar);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
