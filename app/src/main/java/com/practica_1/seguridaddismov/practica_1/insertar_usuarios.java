@@ -64,32 +64,44 @@ public class insertar_usuarios extends AppCompatActivity {
                 String numeroUsuarios = txtNumeroUsuarios.getText().toString();
                 String fechaRegistro = txtFechaRegistro.getText().toString();
                 SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
-                int continuar = 0;
+                int informacionInvalida = 0;
 
-
-                /* Validación del campo nacionalidad */
-                if(!nacionalidad.equals("")&&(!nacionalidad.equals("AU")||!nacionalidad.equals("BR")||!nacionalidad.equals("CA")||!nacionalidad.equals("CH")
-                        ||!nacionalidad.equals("DE")||!nacionalidad.equals("DK")||!nacionalidad.equals("ES")||!nacionalidad.equals("FI")
-                        ||!nacionalidad.equals("FR")||!nacionalidad.equals("GB")||!nacionalidad.equals("IE")||!nacionalidad.equals("IR")
-                        ||!nacionalidad.equals("NL")||!nacionalidad.equals("NZ")||!nacionalidad.equals("TR")||!nacionalidad.equals("US"))){
-                    txtNacionalidad.setError("Introduce una de las nacionalidades disponibles");
-                    continuar = 1;
+                // Validación del campo nacionalidad
+                if (!nacionalidad.equals("")){
+                    String [] nacionalidades = nacionalidad.split(",");
+                    for (int i = 0; i < nacionalidades.length; i++){
+                        if(!nacionalidades[i].equals("AU") && !nacionalidades[i].equals("BR") && !nacionalidades[i].equals("CA") && !nacionalidades[i].equals("CH")
+                                && !nacionalidades[i].equals("DE") && !nacionalidades[i].equals("DK") && !nacionalidades[i].equals("ES") && !nacionalidades[i].equals("FI")
+                                && !nacionalidades[i].equals("FR") && !nacionalidades[i].equals("GB") && !nacionalidades[i].equals("IE") && !nacionalidades[i].equals("IR")
+                                && !nacionalidades[i].equals("NL") && !nacionalidades[i].equals("NZ") && !nacionalidades[i].equals("TR") && !nacionalidades[i].equals("US")){
+                            txtNacionalidad.setError("- Introduce nacionalidades entre las disponibles\n- Si introduces varias nacionalidades, separáralas por una ',' únicamente");
+                            informacionInvalida = 1;
+                        }
+                    }
                 }
 
+                // Validacion del campo numero de usuarios
+                if(!numeroUsuarios.equals("")){
+                    String regex = "[0-9]+";
+                    if(!numeroUsuarios.matches(regex)){
+                        txtNumeroUsuarios.setError("Introduce únicamente dígitos");
+                        informacionInvalida = 1;
+                    }
+                }
 
-                /* Validación del campo fecha de registro */
+                // Validación del campo fecha de registro
                 Date specifiedDate = new Date();
                 if (!fechaRegistro.equals("")){
                     try {
                         specifiedDate = formatter2.parse(txtFechaRegistro.getText().toString());
-                        continuar = 1;
                     } catch (ParseException e) {
                        txtFechaRegistro.setError("Introduce un formato válido (dd/mm/yyyy)");
+                        informacionInvalida = 1;
                     }
                 }
 
-
-                if(continuar == 0){
+                // Si los campos anteriores son correctos, se extraen los usuarios de la API
+                if(informacionInvalida == 0){
                     try {
                         // Lo primero que se hace es crear la URL para acceder a la API de RandomUser según los campos marcados por el usuario
                         API_URL_BUILD = new StringBuilder("https://randomuser.me/api/?inc=name,registered,gender,picture,location,login");
@@ -108,7 +120,7 @@ public class insertar_usuarios extends AppCompatActivity {
                         API_URL = API_URL_BUILD.toString();
 
 
-                        // Resultado de la llamada a la URL de la API y organización en un JSONArray
+                        // Se obtiene el resultado de la llamada a la URL de la API y se organiza en un JSONArray
                         String resultadoURL = new obtenerUsuarios().execute().get();
                         JSONObject objectJson = new JSONObject(resultadoURL);
                         JSONArray listaResultado = objectJson.getJSONArray("results");
@@ -208,13 +220,13 @@ public class insertar_usuarios extends AppCompatActivity {
                         Log.e("ERROR", e.getMessage(), e);
                     }
                 }
-
             }
         });
     }
 
 
-    // Esta clase se ha creado para que no de error al intentar ejecutar un proceso en backgroud en el thread principal
+    // Esta clase se crea para acceder a la API de RandomUser.
+    // La conexion a Internet no puede hacerse desde el Thread principal, por eso se usa AsyncTask
     class obtenerUsuarios extends  AsyncTask<String, Integer, String>{
         @Override
         protected String doInBackground(String... strings) {
@@ -238,9 +250,11 @@ public class insertar_usuarios extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Se asigna el menu de navegacion a la actividad actual
         getMenuInflater().inflate(R.menu.menu, menu);
 
         // Se muestra deshabilitada la opcion "Insertar usuarios"
@@ -249,16 +263,16 @@ public class insertar_usuarios extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Cuando se seleccione la opcion "Listar Usuarios" se pasara a la actividad correspondiente
         int id = item.getItemId();
-
         if (id == R.id.listarMenu) {
             Intent abrirListar = new Intent("android.intent.action.LISTAR");
             startActivity(abrirListar);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

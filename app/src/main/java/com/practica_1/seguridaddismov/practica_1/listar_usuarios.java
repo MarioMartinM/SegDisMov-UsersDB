@@ -22,6 +22,7 @@ public class listar_usuarios extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         // Se preparan las variables necesarias para leer de la BBDD
         FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -50,17 +51,19 @@ public class listar_usuarios extends AppCompatActivity {
         );
 
 
+        // Se accede a los elementos obtenidos en el objeto Cursor
         ArrayList<Usuario> usuarios = new ArrayList<>();
         String itemName, itemGender, itemLocation, itemPicture, itemLargePicture, itemRegister, itemUsername, itemPassword;
         for (int i = 0; i < cursor.getCount(); i++){
+            // Si es la primera iteracion, se pasa al primer elemento del Cursor. Si no, se pasa al siguiente
             if (i == 0){
-                // Se accede al primer resultado devuelto
                 cursor.moveToFirst();
             }
             else {
                 cursor.moveToNext();
             }
 
+            // Se obtienen todos los atributos del elemento actual (que es un Usuario)
             itemName = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME));
             itemGender = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER));
             itemLocation = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION));
@@ -70,13 +73,18 @@ public class listar_usuarios extends AppCompatActivity {
             itemUsername = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME));
             itemPassword = cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD));
 
+            // Se crea un usuario con los atributos anteriores y se añade a un ArrayList
             Usuario aux = new Usuario(itemName, itemGender, itemLocation, itemPicture, itemLargePicture, itemRegister, itemUsername, itemPassword);
             usuarios.add(aux);
         }
-
         cursor.close();
+
+
+        // Se accede a la lista del XML y se le asigna el formato correspondiente
         ListView lv = findViewById(R.id.listaUsuarios);
         AdapterUser adapter = new AdapterUser(this, usuarios);
+
+        // Ademas, cuando se clicke un elemento de la lista se pasara a la actividad del Perfil del usuario clickado
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
@@ -90,9 +98,11 @@ public class listar_usuarios extends AppCompatActivity {
         lv.setAdapter(adapter);
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Se asigna el menu de navegacion a la actividad actual
         getMenuInflater().inflate(R.menu.menu, menu);
 
         // Se muestra deshabilitada la opcion "Listar usuarios"
@@ -101,18 +111,16 @@ public class listar_usuarios extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Cuando se seleccione la opcion "Insertar Usuarios" se pasara a la actividad correspondiente
         int id = item.getItemId();
-
         if (id == R.id.insertarMenu) {
             Intent abrirInsertar = new Intent("android.intent.action.INSERTAR");
             startActivity(abrirInsertar);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-
 }

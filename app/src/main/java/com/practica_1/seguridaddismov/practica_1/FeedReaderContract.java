@@ -45,7 +45,7 @@ public final class FeedReaderContract {
 
     // Clase para la creacion de la base de datos
     public static class FeedReaderDbHelper extends SQLiteOpenHelper {
-        // If you change the database schema, you must increment the database version.
+        // Aumentar la version si se modifica la estructura de la BBDD
         public static final int DATABASE_VERSION = 4;
         public static final String DATABASE_NAME = "usuariosDB.db";
 
@@ -58,8 +58,6 @@ public final class FeedReaderContract {
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            // This database is only a cache for online data, so its upgrade policy is
-            // to simply to discard the data and start over
             db.execSQL(SQL_DELETE_ENTRIES);
             onCreate(db);
         }

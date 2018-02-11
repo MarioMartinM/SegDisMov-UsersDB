@@ -21,6 +21,7 @@ public class pagina_principal extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Se activa el boton de "Insertar Usuarios" para que al hacer clic se pase a la actividad correspondiente
         insertar = findViewById(R.id.Insertar);
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +31,7 @@ public class pagina_principal extends AppCompatActivity {
             }
         });
 
+        // Se activa el boton de "Listar Usuarios" para que al hacer clic se pase a la actividad correspondiente
         listar = findViewById(R.id.Listar);
         listar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,6 +14,7 @@ public class presentacion extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Se crea un Thread para que a los 3s se pase a la pagina principal
         Thread reloj = new Thread(){
             public void run(){
                 try{
@@ -23,8 +24,8 @@ public class presentacion extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                    Intent abrirPagina2 = new Intent("android.intent.action.INICIO");
-                    startActivity(abrirPagina2);
+                    Intent abrirPaginaPrincipal = new Intent("android.intent.action.INICIO");
+                    startActivity(abrirPaginaPrincipal);
                 }
             }
         };

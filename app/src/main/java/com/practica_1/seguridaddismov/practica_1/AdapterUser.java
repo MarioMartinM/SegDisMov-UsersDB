@@ -58,8 +58,10 @@ public class AdapterUser extends BaseAdapter {
             v = inf.inflate(R.layout.fila_lista, null);
         }
 
+        // Se accede al usuario que se va a cargar en la lista
         final Usuario dir = users.get(position);
 
+        // Se carga la imagen de perfil del usuario
         ImageView imagenPerfil = v.findViewById(R.id.imageView);
         try{
             URL url = new URL(dir.getImagenPerfil());
@@ -69,15 +71,15 @@ public class AdapterUser extends BaseAdapter {
             e.printStackTrace();
         }
 
+        // Se carga el nombre, fecha de registro y genero del usuario
         TextView nombreLista = v.findViewById(R.id.nombreLista);
         nombreLista.setText(dir.getNombre());
-
         TextView registroLista = v.findViewById(R.id.registroLista);
         registroLista.setText(dir.getFechaRegistro());
-
         TextView generoLista = v.findViewById(R.id.generoLista);
         generoLista.setText(dir.getGenero());
 
+        // Se carga la contraseña y el usuario si existe el campo en el XML (Modo Landscape)
         TextView passwordLista = v.findViewById(R.id.passwordLista);
         TextView usuarioLista = v.findViewById(R.id.usuarioLista);
         if(usuarioLista != null || passwordLista != null){
@@ -85,6 +87,7 @@ public class AdapterUser extends BaseAdapter {
             passwordLista.setText(dir.getContrasena());
         }
 
+        // Se asigna a un boton la calle del usuario si existe dicho boton en el XML (Modo Portrait)
         ImageButton mapa = v.findViewById(R.id.buttonMaps);
         if(mapa!=null) {
             mapa.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +105,8 @@ public class AdapterUser extends BaseAdapter {
     }
 
 
-    // Esta clase se ha creado para que no de error al intentar ejecutar un proceso en backgroud en el thread principal (Acceso a Internet)
+    // Esta clase se crea para descargar la imagen de perfil del usuario.
+    // La conexion a Internet no puede hacerse desde el Thread principal, por eso se usa AsyncTask
     class obtenerImagen extends AsyncTask<URL, Integer, Bitmap> {
         protected Bitmap doInBackground(URL ... urls) {
             Bitmap bmp = null;

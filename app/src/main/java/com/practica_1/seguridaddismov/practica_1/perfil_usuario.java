@@ -37,8 +37,10 @@ public class perfil_usuario extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Cuando se accede a esta actividad, se pasa un usuario como parametro, asi que se obtiene
         final Usuario user = (Usuario) getIntent().getSerializableExtra("Usuario");
 
+        // Se carga la imagne de perfil grande del usuario
         ImageView imagenPerfil = findViewById(R.id.imagenPerfil);
         try{
             URL url = new URL(user.getImagenPerfilGrande());
@@ -48,6 +50,7 @@ public class perfil_usuario extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Se carga el nombre, fecha de registro, genero, usuario y contraseña del usuario
         TextView nombrePerfil = findViewById(R.id.nombrePerfil);
         nombrePerfil.setText(user.getNombre());
         TextView registroPerfil = findViewById(R.id.registroPerfil);
@@ -59,6 +62,8 @@ public class perfil_usuario extends AppCompatActivity {
         TextView passwordPerfil = findViewById(R.id.passwordPerfil);
         passwordPerfil.setText(user.getContrasena());
 
+
+        // Se asigna en un boton la calle del usuario
         ImageButton mapa = findViewById(R.id.buttonMapsPerfil);
         mapa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +75,7 @@ public class perfil_usuario extends AppCompatActivity {
             }
         });
 
-
-        // Activamos el boton para eliminar el usuario
+        // Se activa el boton para eliminar el usuario de la BBDD
         ImageButton eliminarPerfil = findViewById(R.id.eliminarUsuario);
         eliminarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +93,7 @@ public class perfil_usuario extends AppCompatActivity {
             }
         });
 
-
-        // Activamos los botones para cambiar los datos
+        // Se activan el boton para editar el nombre de usuario del usuario actual
         ImageButton editarUsuario = findViewById(R.id.editarUsuario);
         editarUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +107,7 @@ public class perfil_usuario extends AppCompatActivity {
             }
         });
 
+        // Se activan el boton para editar la contraseña del usuario actual
         ImageButton editarPassword = findViewById(R.id.editarPassword);
         editarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +121,7 @@ public class perfil_usuario extends AppCompatActivity {
             }
         });
 
+        // Se activan el boton para editar la localizacion (calle) del usuario actual
         ImageButton editarLocalizacion = findViewById(R.id.editarLocalizacion);
         editarLocalizacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +137,8 @@ public class perfil_usuario extends AppCompatActivity {
     }
 
 
+
+    // Clase para mostrar el dialogo correspondiente al pulsar el boton para editar el nombre de usuario y modificarlo con el nuevo valor introducido
     public static class editarUsuarioDialog extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -169,6 +176,7 @@ public class perfil_usuario extends AppCompatActivity {
     }
 
 
+    // Clase para mostrar el dialogo correspondiente al pulsar el boton para editar la contraseña y modificarlo con el nuevo valor introducido
     public static class editarPasswordDialog extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -206,6 +214,7 @@ public class perfil_usuario extends AppCompatActivity {
     }
 
 
+    // Clase para mostrar el dialogo correspondiente al pulsar el boton para editar la localizacion (calle) y modificarlo con el nuevo valor introducido
     public static class editarLocalizacionDialog extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -243,7 +252,8 @@ public class perfil_usuario extends AppCompatActivity {
     }
 
 
-    // Esta clase se ha creado para que no de error al intentar ejecutar un proceso en backgroud en el thread principal (Acceso a Internet)
+    // Esta clase se crea para descargar la imagen de perfil grande del usuario.
+    // La conexion a Internet no puede hacerse desde el Thread principal, por eso se usa AsyncTask
     class obtenerImagen extends AsyncTask<URL, Integer, Bitmap> {
         protected Bitmap doInBackground(URL ... urls) {
             Bitmap bmp = null;
@@ -256,30 +266,30 @@ public class perfil_usuario extends AppCompatActivity {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Se asigna el menu de navegacion a la actividad actual
         getMenuInflater().inflate(R.menu.menu, menu);
 
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Cuando se seleccione une opcion se pasara a la actividad correspondiente
         int id = item.getItemId();
-
         if (id == R.id.listarMenu) {
             Intent abrirListar = new Intent("android.intent.action.LISTAR");
             startActivity(abrirListar);
             return true;
         }
-
         if (id == R.id.insertarMenu) {
             Intent abrirInsertar = new Intent("android.intent.action.INSERTAR");
             startActivity(abrirInsertar);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
