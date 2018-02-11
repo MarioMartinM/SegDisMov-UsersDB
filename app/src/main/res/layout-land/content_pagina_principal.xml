@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/tituloPagina2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="75dp"
+        android:text="@string/tit_pagina2"
+        android:textAlignment="center"
+        android:textColor="#000207"
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/Listar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tituloPagina2"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="33dp"
+        android:width="300dp"
+        android:height="70dp"
+        android:text="@string/boton1_pagina2" />
+
+    <Button
+        android:id="@+id/Insertar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Listar"
+        android:layout_alignBottom="@+id/Listar"
+        android:layout_marginStart="45dp"
+        android:layout_toEndOf="@+id/Listar"
+        android:width="300dp"
+        android:height="70dp"
+        android:text="@string/boton2_pagina2" />
+
+
+
+</RelativeLayout>
