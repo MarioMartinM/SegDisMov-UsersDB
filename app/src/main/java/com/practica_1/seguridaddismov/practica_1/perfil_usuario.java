@@ -138,10 +138,11 @@ public class perfil_usuario extends AppCompatActivity {
 
 
     // AL ELIMINAR UN USUARIO, QUE AL DAR ATRAS NO VUELVA A LA ACTIVIDAD CON ESE USUARIO
-    protected void onPause() {
+    // LO HE COMENTADO PORQUE SINO AL GIRAR LA PANTALLA SE SALIA --> MIRAR ESAS SITUACIONES
+    /*protected void onPause() {
         super.onPause();
         finish();
-    }
+    }*/
 
 
 
