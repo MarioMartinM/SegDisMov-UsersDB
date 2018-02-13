@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
 
         <TextView
@@ -60,19 +60,19 @@
             android:id="@+id/radioHombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textSexo"
             android:layout_alignStart="@+id/textSexo"
+            android:layout_below="@+id/textSexo"
             android:layout_marginStart="17dp"
             android:text="@string/opcion_hombre" />
 
-            <CheckBox
-                android:id="@+id/radioMujer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/textNumeroUsuarios"
-                android:layout_alignEnd="@+id/InsertarUsuarios"
-                android:layout_marginEnd="33dp"
-                android:text="@string/opcion_mujer" />
+        <CheckBox
+            android:id="@+id/radioMujer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textNumeroUsuarios"
+            android:layout_alignEnd="@+id/InsertarUsuarios"
+            android:layout_marginEnd="33dp"
+            android:text="@string/opcion_mujer" />
 
         <TextView
             android:id="@+id/textNumeroUsuarios"
@@ -85,17 +85,17 @@
             android:textColor="#57585b"
             android:textSize="19sp" />
 
-            <EditText
-                android:id="@+id/editNumeroUsuarios"
-                android:layout_width="500dp"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/textSexo"
-                android:layout_alignTop="@+id/textNumeroUsuarios"
-                android:layout_marginTop="17dp"
-                android:ems="10"
-                android:hint="@string/numero_usuarios_ph"
-                android:inputType="number"
-                android:textColor="#57585b" />
+        <EditText
+            android:id="@+id/editNumeroUsuarios"
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textSexo"
+            android:layout_alignTop="@+id/textNumeroUsuarios"
+            android:layout_marginTop="17dp"
+            android:ems="10"
+            android:hint="@string/numero_usuarios_ph"
+            android:inputType="number"
+            android:textColor="#57585b" />
 
         <TextView
             android:id="@+id/textFechaRegistro"
@@ -129,7 +129,7 @@
             android:layout_marginBottom="40dp"
             android:layout_marginTop="18dp"
             android:width="200dp"
-            android:text="@string/boton1_pagina2" />
+            android:text="@string/principal_boton_insertar" />
 
     </RelativeLayout>
 

@@ -137,6 +137,13 @@ public class perfil_usuario extends AppCompatActivity {
     }
 
 
+    // AL ELIMINAR UN USUARIO, QUE AL DAR ATRAS NO VUELVA A LA ACTIVIDAD CON ESE USUARIO
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+
 
     // Clase para mostrar el dialogo correspondiente al pulsar el boton para editar el nombre de usuario y modificarlo con el nuevo valor introducido
     public static class editarUsuarioDialog extends DialogFragment {

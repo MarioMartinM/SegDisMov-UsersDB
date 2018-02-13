@@ -225,6 +225,12 @@ public class insertar_usuarios extends AppCompatActivity {
     }
 
 
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+
     // Esta clase se crea para acceder a la API de RandomUser.
     // La conexion a Internet no puede hacerse desde el Thread principal, por eso se usa AsyncTask
     class obtenerUsuarios extends  AsyncTask<String, Integer, String>{

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="75dp"
-        android:text="@string/tit_pagina2"
+        android:text="@string/tit_pagina_principal"
         android:textAlignment="center"
         android:textColor="#000207"
         android:textSize="40sp" />
@@ -25,7 +25,7 @@
         android:layout_marginTop="33dp"
         android:width="300dp"
         android:height="70dp"
-        android:text="@string/boton1_pagina2" />
+        android:text="@string/principal_boton_listar" />
 
     <Button
         android:id="@+id/Insertar"
@@ -37,7 +37,7 @@
         android:layout_toEndOf="@+id/Listar"
         android:width="300dp"
         android:height="70dp"
-        android:text="@string/boton2_pagina2" />
+        android:text="@string/principal_boton_insertar" />
 
 
 

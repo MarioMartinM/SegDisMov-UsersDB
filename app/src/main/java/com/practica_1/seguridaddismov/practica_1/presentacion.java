@@ -32,4 +32,10 @@ public class presentacion extends AppCompatActivity {
 
         reloj.start();
     }
+
+
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }
