@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:orientation="vertical" >
+
+
+        <ImageView
+            android:id="@+id/imagenPerfil"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignBottom="@+id/usuarioPerfil1"
+            android:layout_alignStart="@+id/nombrePerfil"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/nombrePerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageView6"
+            android:layout_marginStart="32dp"
+            android:text="@string/nombre_ejemplo"
+            android:textColor="#00040a"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/datosPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="58dp"
+            android:layout_marginTop="66dp"
+            android:layout_toEndOf="@+id/nombrePerfil"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/datos_del_usuario"
+            android:textColor="#00040a"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/registroPerfil1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/datosPerfil"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/imageView4"
+            android:text="@string/fecha_registro"
+            android:textColor="#00040a"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/registroPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/registroPerfil1"
+            android:layout_alignBottom="@+id/registroPerfil1"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/registroPerfil1"
+            android:text="@string/fecha_registro_ejemplo"
+            android:textColor="#00040a"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/generoPerfil1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/registroPerfil1"
+            android:layout_below="@+id/registroPerfil1"
+            android:layout_marginTop="18dp"
+            android:text="@string/genero"
+            android:textColor="#00040a"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/generoPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/generoPerfil1"
+            android:layout_alignBottom="@+id/generoPerfil1"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/generoPerfil1"
+            android:text="@string/genero_ejemplo"
+            android:textColor="#00040a"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/localizacionPerfil1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/generoPerfil1"
+            android:layout_alignTop="@+id/buttonMapsPerfil"
+            android:layout_marginTop="5dp"
+            android:text="@string/localizaci_n"
+            android:textColor="#00040a"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/buttonMapsPerfil"
+            android:layout_width="32dp"
+            android:layout_height="33dp"
+            android:layout_below="@+id/generoPerfil"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/localizacionPerfil1"
+            app:srcCompat="@drawable/maps" />
+
+        <TextView
+            android:id="@+id/usuarioPerfil1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/localizacionPerfil1"
+            android:layout_below="@+id/buttonMapsPerfil"
+            android:layout_marginTop="7dp"
+            android:text="@string/usuario"
+            android:textColor="#00040a"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/usuarioPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/usuarioPerfil1"
+            android:layout_alignBottom="@+id/usuarioPerfil1"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/usuarioPerfil1"
+            android:text="@string/usuario_ejemplo"
+            android:textColor="#00040a"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/passwordPerfil1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/usuarioPerfil1"
+            android:layout_below="@+id/usuarioPerfil1"
+            android:layout_marginTop="15dp"
+            android:text="@string/password"
+            android:textColor="#00040a"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/passwordPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/passwordPerfil1"
+            android:layout_marginStart="5dp"
+            android:layout_alignBottom="@+id/passwordPerfil1"
+            android:layout_toEndOf="@+id/passwordPerfil1"
+            android:text="@string/password_ejemplo"
+            android:textColor="#00040a"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_above="@+id/generoPerfil1"
+            android:layout_alignStart="@+id/datosPerfil"
+            app:srcCompat="@drawable/calendario" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView3"
+            android:layout_alignTop="@+id/generoPerfil1"
+            app:srcCompat="@drawable/genero" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView4"
+            android:layout_alignTop="@+id/localizacionPerfil1"
+            app:srcCompat="@drawable/localizacion" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView5"
+            android:layout_alignTop="@+id/usuarioPerfil1"
+            app:srcCompat="@drawable/usuario" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView6"
+            android:layout_alignTop="@+id/passwordPerfil1"
+            app:srcCompat="@drawable/password" />
+
+        <ImageButton
+            android:id="@+id/eliminarUsuario"
+            android:layout_width="37dp"
+            android:layout_height="39dp"
+            android:layout_below="@+id/imageView7"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/passwordPerfil1"
+            app:srcCompat="@drawable/eliminar" />
+
+        <ImageButton
+            android:id="@+id/editarLocalizacion"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/buttonMapsPerfil"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/registroPerfil"
+            app:srcCompat="@drawable/editar" />
+
+        <ImageButton
+            android:id="@+id/editarUsuario"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignStart="@+id/editarLocalizacion"
+            android:layout_alignTop="@+id/usuarioPerfil"
+            app:srcCompat="@drawable/editar" />
+
+        <ImageButton
+            android:id="@+id/editarPassword"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/passwordPerfil"
+            android:layout_alignStart="@+id/editarUsuario"
+            app:srcCompat="@drawable/editar" />
+
+    </RelativeLayout>
+
+</ScrollView>

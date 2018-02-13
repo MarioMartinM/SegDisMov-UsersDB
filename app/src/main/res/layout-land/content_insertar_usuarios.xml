@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+
+        <TextView
+            android:id="@+id/textoForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="68dp"
+            android:text="@string/tit_insertar"
+            android:textAlignment="center"
+            android:textColor="#000207"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textNacionalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editNacionalidad"
+            android:layout_below="@+id/textoForm"
+            android:layout_marginTop="20dp"
+            android:text="@string/nacionalidad"
+            android:textColor="#57585b"
+            android:textSize="19sp" />
+
+        <EditText
+            android:id="@+id/editNacionalidad"
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textNacionalidad"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:ems="10"
+            android:hint="@string/nacionalidad_ph"
+            android:inputType="text"
+            android:textColor="#57585b" />
+
+        <TextView
+            android:id="@+id/textSexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editNacionalidad"
+            android:layout_below="@+id/editNacionalidad"
+            android:layout_marginTop="18dp"
+            android:text="@string/textSexo"
+            android:textColor="#57585b"
+            android:textSize="19sp" />
+
+        <CheckBox
+            android:id="@+id/radioHombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textSexo"
+            android:layout_alignStart="@+id/textSexo"
+            android:layout_marginStart="17dp"
+            android:text="@string/opcion_hombre" />
+
+            <CheckBox
+                android:id="@+id/radioMujer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textNumeroUsuarios"
+                android:layout_alignEnd="@+id/InsertarUsuarios"
+                android:layout_marginEnd="33dp"
+                android:text="@string/opcion_mujer" />
+
+        <TextView
+            android:id="@+id/textNumeroUsuarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editNumeroUsuarios"
+            android:layout_below="@+id/radioHombre"
+            android:layout_marginTop="20dp"
+            android:text="@string/numero_usuarios"
+            android:textColor="#57585b"
+            android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/editNumeroUsuarios"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textSexo"
+                android:layout_alignTop="@+id/textNumeroUsuarios"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="@string/numero_usuarios_ph"
+                android:inputType="number"
+                android:textColor="#57585b" />
+
+        <TextView
+            android:id="@+id/textFechaRegistro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editNumeroUsuarios"
+            android:layout_below="@+id/editNumeroUsuarios"
+            android:layout_marginTop="20dp"
+            android:text="@string/fecha_registro"
+            android:textColor="#57585b"
+            android:textSize="19sp" />
+
+        <EditText
+            android:id="@+id/editFechaRegistro"
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textFechaRegistro"
+            android:layout_alignTop="@+id/textFechaRegistro"
+            android:layout_marginTop="17dp"
+            android:ems="10"
+            android:hint="@string/fecha_registro_ejemplo"
+            android:inputType="date"
+            android:textColor="#57585b" />
+
+        <Button
+            android:id="@+id/InsertarUsuarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editFechaRegistro"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="18dp"
+            android:width="200dp"
+            android:text="@string/boton1_pagina2" />
+
+    </RelativeLayout>
+
+</ScrollView>
