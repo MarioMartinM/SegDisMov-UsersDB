@@ -139,15 +139,6 @@ public class perfil_usuario extends AppCompatActivity {
     }
 
 
-    // AL ELIMINAR UN USUARIO, QUE AL DAR ATRAS NO VUELVA A LA ACTIVIDAD CON ESE USUARIO
-    // LO HE COMENTADO PORQUE SINO AL GIRAR LA PANTALLA SE SALIA --> MIRAR ESAS SITUACIONES
-   /* protected void onPause() {
-        super.onPause();
-        finish();
-    }*/
-
-
-
     // Clase para mostrar el dialogo correspondiente al pulsar el boton para editar el nombre de usuario y modificarlo con el nuevo valor introducido
     public static class editarUsuarioDialog extends DialogFragment {
         @Override
@@ -174,6 +165,12 @@ public class perfil_usuario extends AppCompatActivity {
                                     values,
                                     selection,
                                     selectionArgs);
+
+                            Intent abrirPrincipal = new Intent("android.intent.action.INICIO");
+                            abrirPrincipal.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(abrirPrincipal);
+                            Intent abrirLista = new Intent("android.intent.action.LISTAR");
+                            startActivity(abrirLista);
                         }
                     })
                     .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
@@ -212,6 +209,12 @@ public class perfil_usuario extends AppCompatActivity {
                                     values,
                                     selection,
                                     selectionArgs);
+
+                            Intent abrirPrincipal = new Intent("android.intent.action.INICIO");
+                            abrirPrincipal.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(abrirPrincipal);
+                            Intent abrirLista = new Intent("android.intent.action.LISTAR");
+                            startActivity(abrirLista);
                         }
                     })
                     .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
@@ -250,6 +253,12 @@ public class perfil_usuario extends AppCompatActivity {
                                     values,
                                     selection,
                                     selectionArgs);
+
+                            Intent abrirPrincipal = new Intent("android.intent.action.INICIO");
+                            abrirPrincipal.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(abrirPrincipal);
+                            Intent abrirLista = new Intent("android.intent.action.LISTAR");
+                            startActivity(abrirLista);
                         }
                     })
                     .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {

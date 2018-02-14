@@ -1,11 +1,14 @@
 package com.practica_1.seguridaddismov.practica_1;
 
+import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -209,8 +212,19 @@ public class insertar_usuarios extends AppCompatActivity {
                         }
 
                         // Una vez se han recorrido todos los usuarios, se muestra el numero de usuarios que finalmente se han añadido
-                        Toast toast = Toast.makeText(context, "Se han añadido "+usersAdded+" usuarios.", Toast.LENGTH_LONG);
-                        toast.show();
+                        NotificationCompat.Builder mBuilder =
+                                new NotificationCompat.Builder(context, "UsersDB_channel")
+                                        .setSmallIcon(R.drawable.iconologo_transparente)
+                                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.iconologo))
+                                        .setContentTitle("UsersDB")
+                                        .setContentText("Se han insertado "+usersAdded+" nuevos usuarios")
+                                        .setAutoCancel(true);
+                        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        mNotifyMgr.notify(001, mBuilder.build());
+
+
+                        //Toast toast = Toast.makeText(context, "Se han añadido "+usersAdded+" usuarios.", Toast.LENGTH_LONG);
+                        //toast.show();
 
                         // Finalmente se regresa a la pantalla principal
                         Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
@@ -224,9 +238,6 @@ public class insertar_usuarios extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 
     // Esta clase se crea para acceder a la API de RandomUser.
@@ -253,7 +264,6 @@ public class insertar_usuarios extends AppCompatActivity {
                 return null;
         }
     }
-
 
 
     @Override
