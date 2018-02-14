@@ -119,8 +119,17 @@ public class listar_usuarios extends AppCompatActivity {
         if (id == R.id.insertarMenu) {
             Intent abrirInsertar = new Intent("android.intent.action.INSERTAR");
             startActivity(abrirInsertar);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
+        paginaPrincipal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(paginaPrincipal);
     }
 }

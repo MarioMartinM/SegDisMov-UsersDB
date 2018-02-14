@@ -214,6 +214,7 @@ public class insertar_usuarios extends AppCompatActivity {
 
                         // Finalmente se regresa a la pantalla principal
                         Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
+                        paginaPrincipal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(paginaPrincipal);
                     }
                     catch(Exception e) {
@@ -225,10 +226,7 @@ public class insertar_usuarios extends AppCompatActivity {
     }
 
 
-    protected void onPause() {
-        super.onPause();
-        finish();
-    }
+
 
 
     // Esta clase se crea para acceder a la API de RandomUser.
@@ -277,6 +275,7 @@ public class insertar_usuarios extends AppCompatActivity {
         if (id == R.id.listarMenu) {
             Intent abrirListar = new Intent("android.intent.action.LISTAR");
             startActivity(abrirListar);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
         android:layout_marginTop="11dp"
         android:text="@string/texto_cambiar_usuario"
         android:textColor="#00040a"
@@ -23,6 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textoModal1"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
         android:layout_marginTop="14dp"
         android:hint="@string/nuevo_usuario"
         android:inputType="textEmailAddress" />

@@ -88,8 +88,10 @@ public class perfil_usuario extends AppCompatActivity {
 
                 Intent abrirListar = new Intent("android.intent.action.LISTAR");
                 startActivity(abrirListar);
+
                 Toast toast = Toast.makeText(context, "El usuario ha sido correctamente eliminado", Toast.LENGTH_LONG);
                 toast.show();
+                finish();
             }
         });
 
@@ -139,7 +141,7 @@ public class perfil_usuario extends AppCompatActivity {
 
     // AL ELIMINAR UN USUARIO, QUE AL DAR ATRAS NO VUELVA A LA ACTIVIDAD CON ESE USUARIO
     // LO HE COMENTADO PORQUE SINO AL GIRAR LA PANTALLA SE SALIA --> MIRAR ESAS SITUACIONES
-    /*protected void onPause() {
+   /* protected void onPause() {
         super.onPause();
         finish();
     }*/
