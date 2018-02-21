@@ -36,5 +36,8 @@
     <string name="nueva_password">Contraseña</string>
     <string name="nueva_localizacion">Nueva dirección</string>
     <string name="texto_cambiar_password">Introduce la nueva contraseña del usuario</string>
+    <string name="title_activity_autenticacion">autenticacion</string>
+    <string name="texto_autenticacion">Inserte su nombre de usuario y contraseña</string>
+    <string name="iniciar_sesion">INICIAR SESIÓN</string>
 
 </resources>

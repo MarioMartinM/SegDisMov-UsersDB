@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.practica_1.seguridaddismov.practica_1.autenticacion"
+    tools:showIn="@layout/activity_autenticacion">
+
+
+    <TextView
+        android:id="@+id/textoForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="42dp"
+        android:text="@string/texto_autenticacion"
+        android:textAlignment="center"
+        android:textColor="#000207"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/usuarioAut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textoForm"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="42dp"
+        android:text="@string/usuario"
+        android:textColor="#000307"
+        android:textSize="19sp" />
+
+    <EditText
+        android:id="@+id/editUsuarioAut"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/usuarioAut"
+        android:layout_below="@+id/usuarioAut"
+        android:ems="10"
+        android:inputType="text"
+        android:textColor="#57585b" />
+
+    <TextView
+        android:id="@+id/passwordAut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editUsuarioAut"
+        android:layout_below="@+id/editUsuarioAut"
+        android:layout_marginTop="41dp"
+        android:text="@string/password"
+        android:textColor="#000307"
+        android:textSize="19sp" />
+
+    <EditText
+        android:id="@+id/editPasswordAut"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/passwordAut"
+        android:layout_below="@+id/passwordAut"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="#57585b" />
+
+    <Button
+        android:id="@+id/iniciarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editPasswordAut"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:width="200dp"
+        android:text="@string/iniciar_sesion" />
+
+</RelativeLayout>

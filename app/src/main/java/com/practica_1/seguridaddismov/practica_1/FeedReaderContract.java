@@ -23,6 +23,13 @@ public final class FeedReaderContract {
         public static final String COLUMN_NAME_PASSWORD = "password";
     }
 
+    // Tabla "usuariosSesion" y columnas que la forman
+    public static class TablaUsuariosSesion implements BaseColumns {
+        public static final String TABLE_NAME = "usuariosSesion";
+        public static final String COLUMN_NAME_USERNAME = "username";
+        public static final String COLUMN_NAME_PASSWORD = "password";
+    }
+
     // Query para la creacion de la tabla "usuarios"
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
@@ -38,9 +45,20 @@ public final class FeedReaderContract {
                     FeedEntry.COLUMN_NAME_USERNAME + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + " )";
 
+    // Query para la creacion de la tabla "usuariosSesion"
+    private static final String SQL_CREATE_ENTRIES_SESION =
+            "CREATE TABLE " + TablaUsuariosSesion.TABLE_NAME + " (" +
+                    TablaUsuariosSesion._ID + " INTEGER PRIMARY KEY," +
+                    TablaUsuariosSesion.COLUMN_NAME_USERNAME + TEXT_TYPE + COMMA_SEP +
+                    TablaUsuariosSesion.COLUMN_NAME_PASSWORD + TEXT_TYPE + " )";
+
     // Query para la eliminacion de la tabla "usuarios"
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + FeedEntry.TABLE_NAME;
+
+    // Query para la eliminacion de la tabla "usuariosSesion"
+    private static final String SQL_DELETE_ENTRIES_SESION =
+            "DROP TABLE IF EXISTS " + TablaUsuariosSesion.TABLE_NAME;
 
 
     // Clase para la creacion de la base de datos
@@ -55,10 +73,12 @@ public final class FeedReaderContract {
 
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(SQL_CREATE_ENTRIES);
+            db.execSQL(SQL_CREATE_ENTRIES_SESION);
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL(SQL_DELETE_ENTRIES);
+            db.execSQL(SQL_DELETE_ENTRIES_SESION);
             onCreate(db);
         }
 

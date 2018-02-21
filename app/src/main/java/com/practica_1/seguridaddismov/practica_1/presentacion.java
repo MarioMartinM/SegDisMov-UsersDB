@@ -24,8 +24,8 @@ public class presentacion extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                    Intent abrirPaginaPrincipal = new Intent("android.intent.action.INICIO");
-                    startActivity(abrirPaginaPrincipal);
+                    Intent abrirPaginaAut = new Intent("android.intent.action.AUT");
+                    startActivity(abrirPaginaAut);
                 }
             }
         };
