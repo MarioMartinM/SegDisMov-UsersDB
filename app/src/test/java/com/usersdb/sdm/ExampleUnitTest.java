@@ -1,4 +1,4 @@
-package com.practica_1.seguridaddismov.practica_1;
+package com.usersdb.sdm;
 
 import org.junit.Test;
 

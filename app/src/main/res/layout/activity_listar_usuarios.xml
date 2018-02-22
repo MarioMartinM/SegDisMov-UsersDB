@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.practica_1.seguridaddismov.practica_1.listar_usuarios">
+    tools:context="com.usersdb.sdm.listar_usuarios">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

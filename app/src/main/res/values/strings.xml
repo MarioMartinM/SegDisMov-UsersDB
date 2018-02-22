@@ -39,5 +39,6 @@
     <string name="title_activity_autenticacion">autenticacion</string>
     <string name="texto_autenticacion">Inserte su nombre de usuario y contraseña</string>
     <string name="iniciar_sesion">INICIAR SESIÓN</string>
+    <string name="registrarse">REGISTRARSE</string>
 
 </resources>

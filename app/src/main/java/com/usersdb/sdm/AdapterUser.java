@@ -1,4 +1,4 @@
-package com.practica_1.seguridaddismov.practica_1;
+package com.usersdb.sdm;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,10 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.usersdb.sdm.sdm.R;
 
 import java.net.URL;
 import java.util.ArrayList;

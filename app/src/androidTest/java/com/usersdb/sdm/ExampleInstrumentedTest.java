@@ -1,4 +1,4 @@
-package com.practica_1.seguridaddismov.practica_1;
+package com.usersdb.sdm;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

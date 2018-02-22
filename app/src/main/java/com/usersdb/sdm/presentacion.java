@@ -1,9 +1,11 @@
-package com.practica_1.seguridaddismov.practica_1;
+package com.usersdb.sdm;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.usersdb.sdm.sdm.R;
 
 public class presentacion extends AppCompatActivity {
 

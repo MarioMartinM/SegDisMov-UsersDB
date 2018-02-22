@@ -1,4 +1,4 @@
-package com.practica_1.seguridaddismov.practica_1;
+package com.usersdb.sdm;
 
 import android.app.NotificationManager;
 import android.content.ContentValues;
@@ -18,7 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.usersdb.sdm.sdm.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -129,7 +130,7 @@ public class insertar_usuarios extends AppCompatActivity {
                         JSONArray listaResultado = objectJson.getJSONArray("results");
 
                         // Se preparan las variables para insertar en la BBDD
-                        FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(context);
+                        UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
                         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
                         // Se crea un contador para los usuarios que finalmente se incluyan en la BBDD
@@ -196,17 +197,17 @@ public class insertar_usuarios extends AppCompatActivity {
 
                                 // Se prepara un ContentValues con los datos para realizar la insercion en la BBDD
                                 ContentValues values = new ContentValues();
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_NAME, fullName);
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_GENDER, gender);
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, location);
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PICTURE, picture);
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LARGEPICTURE, largePicture);
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_REGISTERED, registered);
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME, username);
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, password);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_NAME, fullName);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_GENDER, gender);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_LOCATION, location);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_PICTURE, picture);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_LARGEPICTURE, largePicture);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_REGISTERED, registered);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_USERNAME, username);
+                                values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_PASSWORD, password);
 
                                 // Se inserta el nuevo usuario en la BBDD y se aumenta el contador de usuarios
-                                db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                                db.insert(UsersDBDatabase.TablaUsuarios.TABLE_NAME, null, values);
                                 usersAdded++;
                             }
                         }

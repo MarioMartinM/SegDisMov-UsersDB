@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.practica_1.seguridaddismov.practica_1.autenticacion"
+    tools:context="com.usersdb.sdm.autenticacion"
     tools:showIn="@layout/activity_autenticacion">
 
 
@@ -73,5 +73,14 @@
         android:layout_marginTop="54dp"
         android:width="200dp"
         android:text="@string/iniciar_sesion" />
+
+    <Button
+        android:id="@+id/registrarse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/iniciarSesion"
+        android:layout_below="@+id/iniciarSesion"
+        android:width="200dp"
+        android:text="@string/registrarse" />
 
 </RelativeLayout>

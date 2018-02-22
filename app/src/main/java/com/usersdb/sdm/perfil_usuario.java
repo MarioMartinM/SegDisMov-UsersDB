@@ -1,4 +1,4 @@
-package com.practica_1.seguridaddismov.practica_1;
+package com.usersdb.sdm;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -24,6 +24,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.usersdb.sdm.sdm.R;
 
 import java.net.URL;
 
@@ -80,11 +82,11 @@ public class perfil_usuario extends AppCompatActivity {
         eliminarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(context);
+                UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+                String selection = UsersDBDatabase.TablaUsuarios.COLUMN_NAME_NAME + " LIKE ?";
                 String[] selectionArgs = { user.getNombre() };
-                db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, selection, selectionArgs);
+                db.delete(UsersDBDatabase.TablaUsuarios.TABLE_NAME, selection, selectionArgs);
 
                 Intent abrirListar = new Intent("android.intent.action.LISTAR");
                 startActivity(abrirListar);
@@ -150,18 +152,18 @@ public class perfil_usuario extends AppCompatActivity {
                     .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(getActivity());
+                            UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
                             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
                             ContentValues values = new ContentValues();
                             EditText editText = getDialog().findViewById(R.id.username);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_USERNAME, editText.getText().toString());
+                            values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_USERNAME, editText.getText().toString());
 
-                            String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+                            String selection = UsersDBDatabase.TablaUsuarios.COLUMN_NAME_NAME + " LIKE ?";
                             String[] selectionArgs = { getArguments().getString("name_user") };
 
                             int count = db.update(
-                                    FeedReaderContract.FeedEntry.TABLE_NAME,
+                                    UsersDBDatabase.TablaUsuarios.TABLE_NAME,
                                     values,
                                     selection,
                                     selectionArgs);
@@ -194,18 +196,18 @@ public class perfil_usuario extends AppCompatActivity {
                     .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(getActivity());
+                            UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
                             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
                             ContentValues values = new ContentValues();
                             EditText editText = getDialog().findViewById(R.id.password);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_PASSWORD, editText.getText().toString());
+                            values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_PASSWORD, editText.getText().toString());
 
-                            String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+                            String selection = UsersDBDatabase.TablaUsuarios.COLUMN_NAME_NAME + " LIKE ?";
                             String[] selectionArgs = { getArguments().getString("name_user") };
 
                             int count = db.update(
-                                    FeedReaderContract.FeedEntry.TABLE_NAME,
+                                    UsersDBDatabase.TablaUsuarios.TABLE_NAME,
                                     values,
                                     selection,
                                     selectionArgs);
@@ -238,18 +240,18 @@ public class perfil_usuario extends AppCompatActivity {
                     .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            FeedReaderContract.FeedReaderDbHelper mDbHelper = new FeedReaderContract.FeedReaderDbHelper(getActivity());
+                            UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
                             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
                             ContentValues values = new ContentValues();
                             EditText editText = getDialog().findViewById(R.id.location);
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_LOCATION, editText.getText().toString());
+                            values.put(UsersDBDatabase.TablaUsuarios.COLUMN_NAME_LOCATION, editText.getText().toString());
 
-                            String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+                            String selection = UsersDBDatabase.TablaUsuarios.COLUMN_NAME_NAME + " LIKE ?";
                             String[] selectionArgs = { getArguments().getString("name_user") };
 
                             int count = db.update(
-                                    FeedReaderContract.FeedEntry.TABLE_NAME,
+                                    UsersDBDatabase.TablaUsuarios.TABLE_NAME,
                                     values,
                                     selection,
                                     selectionArgs);
