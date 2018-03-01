@@ -38,7 +38,7 @@ public class autenticacion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autenticacion);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         txtUsuario = findViewById(R.id.editUsuarioAut);
@@ -133,6 +133,7 @@ public class autenticacion extends AppCompatActivity {
                             }
                         }
                     }
+                    cursor.close();
                 }
             }
         });
@@ -194,6 +195,7 @@ public class autenticacion extends AppCompatActivity {
                         Toast toast = Toast.makeText(context, "Se ha añadido el nuevo usuario a la BBDD", Toast.LENGTH_SHORT);
                         toast.show();
                     }
+                    cursor.close();
                 }
             }
         });
