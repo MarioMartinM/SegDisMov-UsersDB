@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.usersdb.sdm.sdm.R;
+import com.usersdb.sdm.R;
 
 public class presentacion extends AppCompatActivity {
 

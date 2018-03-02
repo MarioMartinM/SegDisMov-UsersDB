@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.usersdb.sdm.sdm.R;
+import com.usersdb.sdm.R;
 
 import java.net.URL;
 

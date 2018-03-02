@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.usersdb.sdm.sdm.R;
+import com.usersdb.sdm.R;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

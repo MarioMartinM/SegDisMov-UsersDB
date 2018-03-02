@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.usersdb.sdm.sdm.R;
+import com.usersdb.sdm.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

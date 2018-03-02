@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.usersdb.sdm.sdm.R;
+import com.usersdb.sdm.R;
 
 import java.net.URL;
 import java.util.ArrayList;

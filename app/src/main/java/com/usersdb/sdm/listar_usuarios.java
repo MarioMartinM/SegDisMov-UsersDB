@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.usersdb.sdm.sdm.R;
+import com.usersdb.sdm.R;
 
 import java.util.ArrayList;
 
