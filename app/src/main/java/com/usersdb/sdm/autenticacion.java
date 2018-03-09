@@ -201,6 +201,9 @@ public class autenticacion extends AppCompatActivity {
         });
     }
 
+
+
+
     private String getSHA512(String passwordToHash, String salt){
         String generatedPassword = null;
         try {
@@ -223,10 +226,11 @@ public class autenticacion extends AppCompatActivity {
         return generatedPassword;
     }
 
+
+
+
     protected void onPause() {
         super.onPause();
         finish();
     }
-
-
 }

@@ -16,6 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="42dp"
+        android:layout_marginHorizontal="10dp"
         android:text="@string/texto_autenticacion"
         android:textAlignment="center"
         android:textColor="#000207"
