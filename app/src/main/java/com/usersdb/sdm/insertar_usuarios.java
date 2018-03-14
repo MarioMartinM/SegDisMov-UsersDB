@@ -4,7 +4,7 @@ import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import net.sqlcipher.database.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -130,7 +130,6 @@ public class insertar_usuarios extends AppCompatActivity {
                         JSONArray listaResultado = objectJson.getJSONArray("results");
 
                         // Se preparan las variables para insertar en la BBDD
-                        SQLiteDatabase.loadLibs(context);
                         UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
                         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 

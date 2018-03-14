@@ -5,11 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import net.sqlcipher.database.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +19,6 @@ import com.usersdb.sdm.R;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.SecretKey;
 
 public class autenticacion extends AppCompatActivity {
 
@@ -74,7 +71,6 @@ public class autenticacion extends AppCompatActivity {
                 }
                 else {
                     // Se preparan las variables para leer de la BD
-                    SQLiteDatabase.loadLibs(context);
                     UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
                     SQLiteDatabase db = mDbHelper.getReadableDatabase();
                     String[] projection = {
@@ -161,7 +157,6 @@ public class autenticacion extends AppCompatActivity {
                 }
                 else {
                     // Se preparan las variables para leer de la BD
-                    SQLiteDatabase.loadLibs(context);
                     UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
                     SQLiteDatabase db = mDbHelper.getReadableDatabase();
                     String[] projection = {
@@ -208,6 +203,7 @@ public class autenticacion extends AppCompatActivity {
 
 
 
+
     private String getSHA512(String passwordToHash, String salt){
         String generatedPassword = null;
         try {
@@ -232,35 +228,9 @@ public class autenticacion extends AppCompatActivity {
 
 
 
+
     protected void onPause() {
         super.onPause();
         finish();
-    }
-
-
-
-
-
-    SecretKey key;
-    String getRawKey() {
-        if (key == null) {
-            return null;
-        }
-        return Crypto.toHex(key.getEncoded());
-    }
-
-    public SecretKey deriveKey(String password, byte[] salt) {
-        return Crypto.deriveKeyPbkdf2(salt, password);
-    }
-
-    public String encrypt(String plaintext, String password) {
-        byte[] salt = Crypto.generateSalt();
-        key = deriveKey(password, salt);
-        Log.d(Crypto.class.getSimpleName(), "Generated key: " + getRawKey());
-        return Crypto.encrypt(plaintext, key, salt);
-    }
-
-    public String decrypt(String ciphertext, String password) {
-        return Crypto.decryptPbkdf2(ciphertext, password);
     }
 }

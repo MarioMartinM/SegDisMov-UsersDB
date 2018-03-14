@@ -6,7 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import net.sqlcipher.database.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -82,7 +82,6 @@ public class perfil_usuario extends AppCompatActivity {
         eliminarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase.loadLibs(context);
                 UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
                 String selection = UsersDBDatabase.TablaUsuarios.COLUMN_NAME_NAME + " LIKE ?";
@@ -153,7 +152,6 @@ public class perfil_usuario extends AppCompatActivity {
                     .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            SQLiteDatabase.loadLibs(getActivity());
                             UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
                             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -198,7 +196,6 @@ public class perfil_usuario extends AppCompatActivity {
                     .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            SQLiteDatabase.loadLibs(getActivity());
                             UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
                             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -243,7 +240,6 @@ public class perfil_usuario extends AppCompatActivity {
                     .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            SQLiteDatabase.loadLibs(getActivity());
                             UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
                             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 

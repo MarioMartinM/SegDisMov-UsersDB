@@ -1,7 +1,8 @@
 package com.usersdb.sdm;
 
 import android.content.Context;
-import net.sqlcipher.database.*;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 
