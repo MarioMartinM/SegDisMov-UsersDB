@@ -1,6 +1,8 @@
 package com.usersdb.sdm;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import net.sqlcipher.database.*;
 import android.os.Bundle;
@@ -17,6 +19,10 @@ import com.usersdb.sdm.R;
 import java.util.ArrayList;
 
 public class listar_usuarios extends AppCompatActivity {
+    public static final String MisPreferencias = "MyPrefs";
+    public static final String SQL_Password = "key_sql";
+    SharedPreferences sprefs;
+    String key_string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +31,14 @@ public class listar_usuarios extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Se accede al SharedPreferences para almacenar en una variable global la contraseña de cifrado de la BD
+        sprefs = getSharedPreferences(MisPreferencias, Context.MODE_PRIVATE);
+        key_string = sprefs.getString(SQL_Password, "");
 
         // Se preparan las variables necesarias para leer de la BBDD
         SQLiteDatabase.loadLibs(this);
         UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        SQLiteDatabase db = mDbHelper.getReadableDatabase(key_string);
 
         // Se define una proyeccion para especificar las columnas que se van a usar de la query
         String[] projection = {

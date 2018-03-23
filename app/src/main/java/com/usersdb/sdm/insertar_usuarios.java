@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import net.sqlcipher.database.*;
+
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,12 +47,21 @@ public class insertar_usuarios extends AppCompatActivity {
     String API_URL = "";
     Context context = this;
 
+    public static final String MisPreferencias = "MyPrefs";
+    public static final String SQL_Password = "key_sql";
+    SharedPreferences sprefs;
+    String key_string;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insertar_usuarios);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Se accede al SharedPreferences para almacenar en una variable global la contraseña de cifrado de la BD
+        sprefs = getSharedPreferences(MisPreferencias, Context.MODE_PRIVATE);
+        key_string = sprefs.getString(SQL_Password, "");
 
         // Se cargan los elementos de la actividad en las variables globales
         insertarUsuarios = findViewById(R.id.InsertarUsuarios);
@@ -132,7 +143,7 @@ public class insertar_usuarios extends AppCompatActivity {
                         // Se preparan las variables para insertar en la BBDD
                         SQLiteDatabase.loadLibs(context);
                         UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
-                        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                        SQLiteDatabase db = mDbHelper.getWritableDatabase(key_string);
 
                         // Se crea un contador para los usuarios que finalmente se incluyan en la BBDD
                         int usersAdded = 0;

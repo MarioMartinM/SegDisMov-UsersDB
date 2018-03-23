@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import net.sqlcipher.database.*;
+
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -32,12 +34,22 @@ import java.net.URL;
 public class perfil_usuario extends AppCompatActivity {
     public Context context = this;
 
+    public static final String MisPreferencias = "MyPrefs";
+    public static final String SQL_Password = "key_sql";
+    public static SharedPreferences sprefs;
+    public static String key_string = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Se accede al SharedPreferences para almacenar en una variable global la contraseña de cifrado de la BD
+        sprefs = getSharedPreferences(MisPreferencias, Context.MODE_PRIVATE);
+        key_string = sprefs.getString(SQL_Password, "");
+
 
         // Cuando se accede a esta actividad, se pasa un usuario como parametro, asi que se obtiene
         final Usuario user = (Usuario) getIntent().getSerializableExtra("Usuario");
@@ -84,7 +96,8 @@ public class perfil_usuario extends AppCompatActivity {
             public void onClick(View v) {
                 SQLiteDatabase.loadLibs(context);
                 UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
-                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                SQLiteDatabase db = mDbHelper.getWritableDatabase(key_string);
+
                 String selection = UsersDBDatabase.TablaUsuarios.COLUMN_NAME_NAME + " LIKE ?";
                 String[] selectionArgs = { user.getNombre() };
                 db.delete(UsersDBDatabase.TablaUsuarios.TABLE_NAME, selection, selectionArgs);
@@ -155,7 +168,7 @@ public class perfil_usuario extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             SQLiteDatabase.loadLibs(getActivity());
                             UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
-                            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                            SQLiteDatabase db = mDbHelper.getReadableDatabase(key_string);
 
                             ContentValues values = new ContentValues();
                             EditText editText = getDialog().findViewById(R.id.username);
@@ -200,7 +213,7 @@ public class perfil_usuario extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             SQLiteDatabase.loadLibs(getActivity());
                             UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
-                            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                            SQLiteDatabase db = mDbHelper.getReadableDatabase(key_string);
 
                             ContentValues values = new ContentValues();
                             EditText editText = getDialog().findViewById(R.id.password);
@@ -245,7 +258,7 @@ public class perfil_usuario extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             SQLiteDatabase.loadLibs(getActivity());
                             UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(getActivity());
-                            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                            SQLiteDatabase db = mDbHelper.getReadableDatabase(key_string);
 
                             ContentValues values = new ContentValues();
                             EditText editText = getDialog().findViewById(R.id.location);
