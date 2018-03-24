@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import net.sqlcipher.database.*;
 import android.os.Bundle;
+import android.security.KeyPairGeneratorSpec;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,11 +18,17 @@ import android.widget.Toast;
 
 import com.usersdb.sdm.R;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.util.Calendar;
 
 import javax.crypto.SecretKey;
+import javax.security.auth.x500.X500Principal;
 
 public class autenticacion extends AppCompatActivity {
     Context context = this;
@@ -58,18 +65,16 @@ public class autenticacion extends AppCompatActivity {
         }
 
         // Se mira si en el SharedPreferences hay un valor para la contraseña de cifrado de SQLite. Si no es así, se genera
-        if (!sprefs.contains(SQL_Password)){
+        if (!sprefs.contains(SQL_Password)) {
             key = deriveKey("sql_cipher", Crypto.generateSalt());
             key_string = getRawKey();
 
             SharedPreferences.Editor editor = sprefs.edit();
             editor.putString(SQL_Password, key_string);
             editor.apply();
-        }
-        else {
+        } else {
             key_string = sprefs.getString(SQL_Password, "");
         }
-
 
 
         iniciarSesion.setOnClickListener(new View.OnClickListener() {
@@ -80,15 +85,14 @@ public class autenticacion extends AppCompatActivity {
                 String password = txtPassword.getText().toString();
 
                 // Si algun campo no está rellenado, se le indica al usuario
-                if (usuario.equals("") || password.equals("")){
-                    if (usuario.equals("")){
+                if (usuario.equals("") || password.equals("")) {
+                    if (usuario.equals("")) {
                         txtUsuario.setError("Introduzca un nombre de usuario");
                     }
-                    if (password.equals("")){
+                    if (password.equals("")) {
                         txtPassword.setError("Introduzca una contraseña");
                     }
-                }
-                else {
+                } else {
                     // Se preparan las variables para leer de la BD
                     SQLiteDatabase.loadLibs(context);
                     UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
@@ -122,13 +126,12 @@ public class autenticacion extends AppCompatActivity {
                         String user_sprefs = sprefs.getString(Usuario, "");
                         String pass_sprefs = sprefs.getString(Password, "");
 
-                        if (password.equals(pass_sprefs) && usuario.equals(user_sprefs)){
+                        if (password.equals(pass_sprefs) && usuario.equals(user_sprefs)) {
                             Intent paginaPrincipal = new Intent("android.intent.action.INICIO");
                             startActivity(paginaPrincipal);
-                            Toast toast = Toast.makeText(context, "¡Bienvenido/a, "+usuario+"!", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(context, "¡Bienvenido/a, " + usuario + "!", Toast.LENGTH_SHORT);
                             toast.show();
-                        }
-                        else {
+                        } else {
                             String password_hashed = getSHA512(password, salt);
 
                             // se comprueba si la contraseña de la BBDD coincide con la insertada por el usuario
@@ -168,15 +171,14 @@ public class autenticacion extends AppCompatActivity {
                 String password = txtPassword.getText().toString();
 
                 // Si algun campo no está rellenado, se le indica al usuario
-                if (usuario.equals("") || password.equals("")){
-                    if (usuario.equals("")){
+                if (usuario.equals("") || password.equals("")) {
+                    if (usuario.equals("")) {
                         txtUsuario.setError("Introduzca un nombre de usuario");
                     }
-                    if (password.equals("")){
+                    if (password.equals("")) {
                         txtPassword.setError("Introduzca una contraseña");
                     }
-                }
-                else {
+                } else {
                     // Se preparan las variables para leer de la BD
                     SQLiteDatabase.loadLibs(context);
                     UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
@@ -208,7 +210,7 @@ public class autenticacion extends AppCompatActivity {
                     // Si no existe el usuario, se añade a la BD
                     else if (cursor.getCount() == 0) {
                         SQLiteDatabase.loadLibs(context);
-                        String password_hashed = getSHA512(password, salt );
+                        String password_hashed = getSHA512(password, salt);
                         SQLiteDatabase db2 = mDbHelper.getWritableDatabase(key_string);
 
                         ContentValues values = new ContentValues();
@@ -226,8 +228,7 @@ public class autenticacion extends AppCompatActivity {
     }
 
 
-
-    private String getSHA512(String passwordToHash, String salt){
+    private String getSHA512(String passwordToHash, String salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -242,13 +243,11 @@ public class autenticacion extends AppCompatActivity {
                 sb.append(hex);
             }
             generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return generatedPassword;
     }
-
 
 
     protected void onPause() {
@@ -258,25 +257,51 @@ public class autenticacion extends AppCompatActivity {
 
 
 
-    String getRawKey() {
-        if (key == null) {
+
+    public KeyStore keyStore;
+    public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
+    public void loadKeyStore() {
+        try {
+            keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
+            keyStore.load(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void generateNewKeyPair(String alias, Context context) throws Exception {
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        // expires 1 year from today
+        end.add(Calendar.YEAR, 1);
+
+        KeyPairGeneratorSpec spec = new KeyPairGeneratorSpec.Builder(context)
+                                    .setAlias(alias)
+                                    .setSubject(new X500Principal("CN=" + alias))
+                                    .setSerialNumber(BigInteger.TEN)
+                                    .setStartDate(start.getTime())
+                                    .setEndDate(end.getTime())
+                                    .build();
+
+        // use the Android keystore
+        KeyPairGenerator gen = KeyPairGenerator.getInstance("RSA",ANDROID_KEYSTORE);
+        gen.initialize(spec);
+        // generates the keypair
+        gen.generateKeyPair();
+    }
+
+    public PrivateKey loadPrivateKey(String alias) throws Exception {
+        if (!keyStore.isKeyEntry(alias)) {
+            Log.e("TAG", "Could not find key alias: " + alias);
             return null;
         }
-        return Crypto.toHex(key.getEncoded());
-    }
 
-    public SecretKey deriveKey(String password, byte[] salt) {
-        return Crypto.deriveKeyPbkdf2(salt, password);
-    }
-
-    public String encrypt(String plaintext, String password) {
-        byte[] salt = Crypto.generateSalt();
-        key = deriveKey(password, salt);
-        Log.d(Crypto.class.getSimpleName(), "Generated key: " + getRawKey());
-        return Crypto.encrypt(plaintext, key, salt);
-    }
-
-    public String decrypt(String ciphertext, String password) {
-        return Crypto.decryptPbkdf2(ciphertext, password);
+        KeyStore.Entry entry = keyStore.getEntry(alias, null);
+        if (!(entry instanceof KeyStore.PrivateKeyEntry)) {
+            Log.e("TAG", " alias: " + alias + " is not a PrivateKey");
+            return null;
+        }
+        return ((KeyStore.PrivateKeyEntry) entry).getPrivateKey();
     }
 }
