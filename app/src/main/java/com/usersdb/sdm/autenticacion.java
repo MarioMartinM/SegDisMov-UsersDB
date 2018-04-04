@@ -265,7 +265,7 @@ public class autenticacion extends AppCompatActivity {
 
 
 
-
+    // Funcion para cargar el KeyStore
     public void loadKeyStore() {
         try {
             keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
@@ -276,12 +276,14 @@ public class autenticacion extends AppCompatActivity {
     }
 
 
+    // Funcion para generar un nuevo par de claves en el KeyStore
     public void generateNewKeyPair(String alias, Context context) throws Exception {
+        // Se define una validación para el par de claves de un año
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
-        // expires 1 year from today
         end.add(Calendar.YEAR, 1);
 
+        // Se crea un generador de claves y se inicializa
         KeyPairGeneratorSpec spec = new KeyPairGeneratorSpec.Builder(context)
                                     .setAlias(alias)
                                     .setSubject(new X500Principal("CN=" + alias))
@@ -289,26 +291,32 @@ public class autenticacion extends AppCompatActivity {
                                     .setStartDate(start.getTime())
                                     .setEndDate(end.getTime())
                                     .build();
-
-        // use the Android keystore
         KeyPairGenerator gen = KeyPairGenerator.getInstance("RSA",ANDROID_KEYSTORE);
         gen.initialize(spec);
-        // generates the keypair
+
+        // Se crea el par de claves
         gen.generateKeyPair();
     }
 
 
+    // Funcion para extraer una clave publica del KeyStore dado un alias
     public PublicKey loadPublicKey(String alias) throws Exception {
+        // Si no existe una entrada en el KeyStore con ese alias, se muestra un mensaje y se termina el metodo
         if (!keyStore.isKeyEntry(alias)) {
             Log.e("TAG", "Could not find key alias: " + alias);
             return null;
         }
 
+        // En caso contrario, se obtiene la entrada correspondiente a ese alias
         KeyStore.Entry entry = keyStore.getEntry(alias, null);
+
+        // Si en esa entrada no hay una clave privada, se muestra un mensaje y se termina el metodo
         if (!(entry instanceof KeyStore.PrivateKeyEntry)) {
             Log.e("TAG", " alias: " + alias + " is not a PrivateKey");
             return null;
         }
+
+        // En caso contrario, se accede al certificado y se obtiene, a partir de el, la clave publica
         Certificate cert = keyStore.getCertificate(alias);
         PublicKey publicKey = cert.getPublicKey();
 
@@ -316,6 +324,7 @@ public class autenticacion extends AppCompatActivity {
     }
 
 
+    // Funcion para convertir una PublicKey en un String
     public String publicKeyToString(PublicKey publicKey){
         byte[] pubKey = publicKey.getEncoded();
         String pubKeyString = Base64.encodeToString(pubKey,  Base64.NO_WRAP);
