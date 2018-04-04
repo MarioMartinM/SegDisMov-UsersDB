@@ -27,8 +27,10 @@ public class Crypto {
     private static int KEY_LENGTH = 256;
     private static int ITERATION_COUNT = 1000;
     private static SecureRandom random = new SecureRandom();
+    private static final int PKCS5_SALT_LENGTH = 8;
 
 
+    // Funcion para generar el vector de inicializacion de forma aleatoria
     public static byte[] generateIv(int length) {
         byte[] b = new byte[length];
         random.nextBytes(b);
@@ -36,7 +38,7 @@ public class Crypto {
     }
 
 
-    private static final int PKCS5_SALT_LENGTH = 8;
+    // Funcion para generar el Salt de forma aleatoria
     public static byte[] generateSalt() {
         byte[] b = new byte[PKCS5_SALT_LENGTH];
         random.nextBytes(b);

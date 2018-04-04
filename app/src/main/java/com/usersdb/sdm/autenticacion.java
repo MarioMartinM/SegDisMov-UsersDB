@@ -257,7 +257,7 @@ public class autenticacion extends AppCompatActivity {
     }
 
 
-
+    // Funcion para obtener el String correspondiente a la clave generada por PBE
     String getRawKey() {
         if (key == null) {
             return null;
@@ -265,10 +265,14 @@ public class autenticacion extends AppCompatActivity {
         return Crypto.toHex(key.getEncoded());
     }
 
+
+    // Funcion para obtener una clave generada por PBE
     public SecretKey deriveKey(String password, byte[] salt) {
         return Crypto.deriveKeyPbkdf2(salt, password);
     }
 
+
+    // Funcion para cifrar un texto en claro dada una contraseña
     public String encrypt(String plaintext, String password) {
         byte[] salt = Crypto.generateSalt();
         key = deriveKey(password, salt);
@@ -276,6 +280,8 @@ public class autenticacion extends AppCompatActivity {
         return Crypto.encrypt(plaintext, key, salt);
     }
 
+
+    // Funcion para descifrar un texto cifrado dada una contraseña
     public String decrypt(String ciphertext, String password) {
         return Crypto.decryptPbkdf2(ciphertext, password);
     }
