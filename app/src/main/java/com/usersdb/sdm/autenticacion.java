@@ -10,13 +10,12 @@ import android.os.Bundle;
 import android.security.KeyPairGeneratorSpec;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.usersdb.sdm.R;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -24,10 +23,10 @@ import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
 import java.util.Calendar;
 
-import javax.crypto.SecretKey;
 import javax.security.auth.x500.X500Principal;
 
 public class autenticacion extends AppCompatActivity {
@@ -43,8 +42,10 @@ public class autenticacion extends AppCompatActivity {
     SharedPreferences sprefs;
     String key_string;
 
-    String salt = "usersDB";
-    SecretKey key;
+    public static final String SALT = "usersDB";
+    public static final String ALIAS = "keystore";
+    public KeyStore keyStore;
+    public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,15 @@ public class autenticacion extends AppCompatActivity {
 
         // Se mira si en el SharedPreferences hay un valor para la contraseña de cifrado de SQLite. Si no es así, se genera
         if (!sprefs.contains(SQL_Password)) {
-            key = deriveKey("sql_cipher", Crypto.generateSalt());
-            key_string = getRawKey();
+
+            try {
+                loadKeyStore();
+                generateNewKeyPair(ALIAS, context);
+                PublicKey publicKey = loadPublicKey(ALIAS);
+                key_string = publicKeyToString(publicKey);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             SharedPreferences.Editor editor = sprefs.edit();
             editor.putString(SQL_Password, key_string);
@@ -132,7 +140,7 @@ public class autenticacion extends AppCompatActivity {
                             Toast toast = Toast.makeText(context, "¡Bienvenido/a, " + usuario + "!", Toast.LENGTH_SHORT);
                             toast.show();
                         } else {
-                            String password_hashed = getSHA512(password, salt);
+                            String password_hashed = getSHA512(password, SALT);
 
                             // se comprueba si la contraseña de la BBDD coincide con la insertada por el usuario
                             cursor.moveToFirst();
@@ -210,7 +218,7 @@ public class autenticacion extends AppCompatActivity {
                     // Si no existe el usuario, se añade a la BD
                     else if (cursor.getCount() == 0) {
                         SQLiteDatabase.loadLibs(context);
-                        String password_hashed = getSHA512(password, salt);
+                        String password_hashed = getSHA512(password, SALT);
                         SQLiteDatabase db2 = mDbHelper.getWritableDatabase(key_string);
 
                         ContentValues values = new ContentValues();
@@ -258,8 +266,6 @@ public class autenticacion extends AppCompatActivity {
 
 
 
-    public KeyStore keyStore;
-    public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
     public void loadKeyStore() {
         try {
             keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
@@ -291,7 +297,8 @@ public class autenticacion extends AppCompatActivity {
         gen.generateKeyPair();
     }
 
-    public PrivateKey loadPrivateKey(String alias) throws Exception {
+
+    public PublicKey loadPublicKey(String alias) throws Exception {
         if (!keyStore.isKeyEntry(alias)) {
             Log.e("TAG", "Could not find key alias: " + alias);
             return null;
@@ -302,6 +309,16 @@ public class autenticacion extends AppCompatActivity {
             Log.e("TAG", " alias: " + alias + " is not a PrivateKey");
             return null;
         }
-        return ((KeyStore.PrivateKeyEntry) entry).getPrivateKey();
+        Certificate cert = keyStore.getCertificate(alias);
+        PublicKey publicKey = cert.getPublicKey();
+
+        return publicKey;
+    }
+
+
+    public String publicKeyToString(PublicKey publicKey){
+        byte[] pubKey = publicKey.getEncoded();
+        String pubKeyString = Base64.encodeToString(pubKey,  Base64.NO_WRAP);
+        return pubKeyString;
     }
 }
