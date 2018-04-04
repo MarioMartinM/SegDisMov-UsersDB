@@ -5,10 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import net.sqlcipher.database.*;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +21,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class autenticacion extends AppCompatActivity {
+import javax.crypto.SecretKey;
 
+public class autenticacion extends AppCompatActivity {
     Context context = this;
     EditText txtUsuario;
     EditText txtPassword;
@@ -30,9 +32,12 @@ public class autenticacion extends AppCompatActivity {
     public static final String MisPreferencias = "MyPrefs";
     public static final String Usuario = "key_user";
     public static final String Password = "key_pass";
+    public static final String SQL_Password = "key_sql";
     SharedPreferences sprefs;
+    String key_string;
 
     String salt = "usersDB";
+    SecretKey key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,20 @@ public class autenticacion extends AppCompatActivity {
             txtUsuario.setText(sprefs.getString(Usuario, ""));
             txtPassword.setText(sprefs.getString(Password, ""));
         }
+
+        // Se mira si en el SharedPreferences hay un valor para la contraseña de cifrado de SQLite. Si no es así, se genera
+        if (!sprefs.contains(SQL_Password)){
+            key = deriveKey("sql_cipher", Crypto.generateSalt());
+            key_string = getRawKey();
+
+            SharedPreferences.Editor editor = sprefs.edit();
+            editor.putString(SQL_Password, key_string);
+            editor.apply();
+        }
+        else {
+            key_string = sprefs.getString(SQL_Password, "");
+        }
+
 
 
         iniciarSesion.setOnClickListener(new View.OnClickListener() {
@@ -71,8 +90,10 @@ public class autenticacion extends AppCompatActivity {
                 }
                 else {
                     // Se preparan las variables para leer de la BD
+                    SQLiteDatabase.loadLibs(context);
                     UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
-                    SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                    SQLiteDatabase db = mDbHelper.getReadableDatabase(key_string);
+
                     String[] projection = {
                             UsersDBDatabase.TablaUsuariosSesion.COLUMN_NAME_USERNAME,
                             UsersDBDatabase.TablaUsuariosSesion.COLUMN_NAME_PASSWORD
@@ -157,8 +178,10 @@ public class autenticacion extends AppCompatActivity {
                 }
                 else {
                     // Se preparan las variables para leer de la BD
+                    SQLiteDatabase.loadLibs(context);
                     UsersDBDatabase.UsersDBDatabaseHelper mDbHelper = new UsersDBDatabase.UsersDBDatabaseHelper(context);
-                    SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                    SQLiteDatabase db = mDbHelper.getReadableDatabase(key_string);
+
                     String[] projection = {
                             UsersDBDatabase.TablaUsuariosSesion.COLUMN_NAME_USERNAME,
                             UsersDBDatabase.TablaUsuariosSesion.COLUMN_NAME_PASSWORD
@@ -184,9 +207,10 @@ public class autenticacion extends AppCompatActivity {
                     }
                     // Si no existe el usuario, se añade a la BD
                     else if (cursor.getCount() == 0) {
+                        SQLiteDatabase.loadLibs(context);
                         String password_hashed = getSHA512(password, salt );
+                        SQLiteDatabase db2 = mDbHelper.getWritableDatabase(key_string);
 
-                        SQLiteDatabase db2 = mDbHelper.getWritableDatabase();
                         ContentValues values = new ContentValues();
                         values.put(UsersDBDatabase.TablaUsuariosSesion.COLUMN_NAME_USERNAME, usuario);
                         values.put(UsersDBDatabase.TablaUsuariosSesion.COLUMN_NAME_PASSWORD, password_hashed);
@@ -200,7 +224,6 @@ public class autenticacion extends AppCompatActivity {
             }
         });
     }
-
 
 
 
@@ -228,9 +251,32 @@ public class autenticacion extends AppCompatActivity {
 
 
 
-
     protected void onPause() {
         super.onPause();
         finish();
+    }
+
+
+
+    String getRawKey() {
+        if (key == null) {
+            return null;
+        }
+        return Crypto.toHex(key.getEncoded());
+    }
+
+    public SecretKey deriveKey(String password, byte[] salt) {
+        return Crypto.deriveKeyPbkdf2(salt, password);
+    }
+
+    public String encrypt(String plaintext, String password) {
+        byte[] salt = Crypto.generateSalt();
+        key = deriveKey(password, salt);
+        Log.d(Crypto.class.getSimpleName(), "Generated key: " + getRawKey());
+        return Crypto.encrypt(plaintext, key, salt);
+    }
+
+    public String decrypt(String ciphertext, String password) {
+        return Crypto.decryptPbkdf2(ciphertext, password);
     }
 }
