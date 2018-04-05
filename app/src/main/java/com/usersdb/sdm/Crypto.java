@@ -38,7 +38,7 @@ public class Crypto {
     }
 
 
-    // Funcion para generar el Salt de forma aleatoria
+    // Funcion para generar el Salt de forma aleatoria (con longitud 8)
     public static byte[] generateSalt() {
         byte[] b = new byte[PKCS5_SALT_LENGTH];
         random.nextBytes(b);
@@ -46,6 +46,7 @@ public class Crypto {
     }
 
 
+    // Funcion para generar una clave del tipo SecretKey
     public static SecretKey deriveKeyPbkdf2(byte[] salt, String password){
         try {
             long start = System.currentTimeMillis();
@@ -63,6 +64,7 @@ public class Crypto {
     }
 
 
+    // Funcion para cifrar un texto en claro dada una contraseña
     public static String encrypt(String plaintext, SecretKey key, byte[] salt) {
         try {
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
@@ -84,11 +86,13 @@ public class Crypto {
     }
 
 
+    // Función para convertir un array de bytes en un String
     public static String toBase64(byte[] bytes) {
         return Base64.encodeToString(bytes, Base64.NO_WRAP);
     }
 
 
+    // Funcion para convertir un array de bytes en hexadecimal (String)
     public static String toHex(byte[] bytes) {
         StringBuffer buff = new StringBuffer();
         for (byte b : bytes) {
@@ -98,6 +102,7 @@ public class Crypto {
     }
 
 
+    // Funcion para descifrar un texto cifrado dada una contraseña
     public static String decrypt(byte[] cipherBytes, SecretKey key, byte[] iv) {
         try {
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
@@ -116,6 +121,7 @@ public class Crypto {
     }
 
 
+    // Funcion para descifrar un texto cifrado dado una contraseña, separando el texto a descifrar del IV y del salt
     public static String decryptPbkdf2(String ciphertext, String password) {
         String[] fields = ciphertext.split(DELIMITER);
         if (fields.length != 3) {
@@ -129,6 +135,7 @@ public class Crypto {
     }
 
 
+    // Función para convertir un String en base 64 en array de bytes
     public static byte[] fromBase64(String base64) {
         return Base64.decode(base64, Base64.NO_WRAP);
     }
