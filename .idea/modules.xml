@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SegDisMov-UsersDB.iml" filepath="$PROJECT_DIR$/SegDisMov-UsersDB.iml" />
-      <module fileurl="file://C:\temp\SegDisMov-UsersDB\SegDisMov-UsersDB.iml" filepath="C:\temp\SegDisMov-UsersDB\SegDisMov-UsersDB.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\temp\SegDisMov-UsersDB\app\app.iml" filepath="C:\temp\SegDisMov-UsersDB\app\app.iml" />
     </modules>
   </component>
 </project>

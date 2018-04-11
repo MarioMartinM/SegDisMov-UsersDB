@@ -67,7 +67,6 @@ public class autenticacion extends AppCompatActivity {
 
         // Se mira si en el SharedPreferences hay un valor para la contraseña de cifrado de SQLite. Si no es así, se genera
         if (!sprefs.contains(SQL_Password)) {
-
             try {
                 loadKeyStore();
                 generateNewKeyPair(ALIAS, context);
@@ -82,6 +81,7 @@ public class autenticacion extends AppCompatActivity {
             editor.apply();
         } else {
             key_string = sprefs.getString(SQL_Password, "");
+            Log.d("Tag", "Clave cifrado: "+key_string);
         }
 
 
